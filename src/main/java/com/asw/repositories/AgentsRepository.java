@@ -6,4 +6,6 @@ import com.asw.entities.Agent;
 
 public interface AgentsRepository extends CrudRepository<Agent, Long>{
 
+	public Agent findByEmail(String email);
+
 }
