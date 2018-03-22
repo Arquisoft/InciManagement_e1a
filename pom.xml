@@ -4,17 +4,17 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.asw</groupId>
-	<artifactId>InciManager</artifactId>
+	<artifactId>InciManager_e1a</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>InciManager</name>
-	<description>Módulo 3 Incidence Manager</description>
+	<name>InciManager_e1a</name>
+	<description>Aplicación para gestión de incidencias</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.0.RELEASE</version>
+		<version>1.5.10.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -27,7 +27,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web-services</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
 		<dependency>
@@ -35,6 +35,45 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+ 			<groupId>javax.servlet</groupId>
+ 			<artifactId>jstl</artifactId>
+ 		</dependency>
+ 		
+ 		<dependency>
+ 			<groupId>org.springframework.boot</groupId>
+ 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		
+		<dependency>
+ 			<groupId>org.hsqldb</groupId>
+ 			<artifactId>hsqldb</artifactId>
+ 			<scope>runtime</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		
+		<dependency>
+ 			<groupId>net.sourceforge.nekohtml</groupId>
+ 			<artifactId>nekohtml</artifactId>
+ 			<version>1.9.21</version>
+		</dependency>
+		
+		<dependency>
+ 			<groupId>org.springframework.boot</groupId>
+ 			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+ 			<groupId>org.thymeleaf.extras</groupId>
+ 			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
+		</dependency>
+		
+ 
 	</dependencies>
 
 	<build>

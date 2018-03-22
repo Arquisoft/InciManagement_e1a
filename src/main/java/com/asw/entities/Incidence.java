@@ -3,7 +3,6 @@ package com.asw.entities;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -28,12 +27,12 @@ public class Incidence {
 	@GeneratedValue
 	private Long id;	
 	private String name;
-	private String descripcion;
+	private String description;
 	private String location; //Se saca del agente?
-	private List<String> etiquetas;
-	private List<HashMap<String,String>> propiedades;
+	private List<String> tags;
+	private List<HashMap<String,String>> properties;
 	@ManyToOne
-	private Agent agente;
+	private Agent agent;
 	
 	public Incidence() {}
 	
@@ -51,10 +50,10 @@ public class Incidence {
 			 Agent agente) {
 		super();
 		this.name = name;
-		this.descripcion = descripcion;
+		this.description = descripcion;
 		this.location = location;
-		this.etiquetas = etiquetas;
-		this.agente = agente;
+		this.tags = etiquetas;
+		this.agent = agente;
 	}
 
 	/**
@@ -70,11 +69,11 @@ public class Incidence {
 			List<HashMap<String, String>> propiedades, Agent agente) {
 		super();
 		this.name = name;
-		this.descripcion = descripcion;
+		this.description = descripcion;
 		this.location = location;
-		this.etiquetas = etiquetas;
-		this.propiedades = propiedades;
-		this.agente = agente;
+		this.tags = etiquetas;
+		this.properties = propiedades;
+		this.agent = agente;
 	}
 
 
@@ -86,10 +85,10 @@ public class Incidence {
 		this.name = name;
 	}
 	public String getDescripcion() {
-		return descripcion;
+		return description;
 	}
 	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+		this.description = descripcion;
 	}
 	public String getLocation() {
 		return location;
@@ -98,22 +97,22 @@ public class Incidence {
 		this.location = location;
 	}
 	public List<String> getEtiquetas() {
-		return etiquetas;
+		return tags;
 	}
 	public void setEtiquetas(List<String> etiquetas) {
-		this.etiquetas = etiquetas;
+		this.tags = etiquetas;
 	}
 	public List<HashMap<String, String>> getPropiedades() {
-		return propiedades;
+		return properties;
 	}
 	public void setPropiedades(List<HashMap<String, String>> propiedades) {
-		this.propiedades = propiedades;
+		this.properties = propiedades;
 	}
 	public Agent getAgente() {
-		return agente;
+		return agent;
 	}
 	public void setAgente(Agent agente) {
-		this.agente = agente;
+		this.agent = agente;
 	}
 	
 	
