@@ -1,16 +1,15 @@
 package com.asw.controllers;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.asw.entities.Agent;
 import com.asw.entities.Incidence;
+import com.asw.services.AgentsService;
 import com.asw.services.IncidencesService;
 
 @Controller
@@ -18,6 +17,9 @@ public class IncidencesController {
 
 	@Autowired
 	IncidencesService incidencesService;
+	
+	@Autowired
+	AgentsService agentsService;
 
 	/*
 	 * Cada incidencia puede contener los siguientes campos: nombre de usuario y
@@ -40,7 +42,8 @@ public class IncidencesController {
 	
 	@RequestMapping(value = "/incidence/add", method = RequestMethod.POST)
 	public String signup(@ModelAttribute Incidence incidence, Model model) {
-		incidencesService.addIncidence(incidence);
+		if(agentsService.sendAgent(incidence.getAgente()))	
+			incidencesService.addIncidence(incidence);
 
 		return "";
 	}
