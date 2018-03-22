@@ -1,16 +1,23 @@
 package com.asw.entities;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.JoinColumn;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * @author fernando
  *
  */
+@Entity
 public class Incidence {
 	/*
 	 * Cada incidencia puede contener los siguientes campos: nombre de usuario y
@@ -29,8 +36,14 @@ public class Incidence {
 	private String name;
 	private String description;
 	private String location; //Se saca del agente?
-	private List<String> tags;
-	private List<HashMap<String,String>> properties;
+
+	@ElementCollection
+	@CollectionTable(name="tags", joinColumns=@JoinColumn(name="tag_id") )
+	@Column(name="tag")
+	private Set<String> tags; 	// lista de etiquetas
+
+	@OneToMany(mappedBy = "incidence", orphanRemoval = true, fetch = FetchType.EAGER)
+	private Set<Property> properties;
 	@ManyToOne
 	private Agent agent;
 	
@@ -46,7 +59,7 @@ public class Incidence {
 	 * @param etiquetas
 	 * @param agente
 	 */
-	public Incidence(String name, String descripcion, String location, List<String> etiquetas,
+	public Incidence(String name, String descripcion, String location, Set<String> etiquetas,
 			 Agent agente) {
 		super();
 		this.name = name;
@@ -65,8 +78,8 @@ public class Incidence {
 	 * @param propiedades
 	 * @param agente
 	 */
-	public Incidence(String name, String descripcion, String location, List<String> etiquetas,
-			List<HashMap<String, String>> propiedades, Agent agente) {
+	public Incidence(String name, String descripcion, String location, Set<String> etiquetas,
+			Set<Property> propiedades, Agent agente) {
 		super();
 		this.name = name;
 		this.description = descripcion;
@@ -96,16 +109,16 @@ public class Incidence {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public List<String> getEtiquetas() {
+	public Set<String> getEtiquetas() {
 		return tags;
 	}
-	public void setEtiquetas(List<String> etiquetas) {
+	public void setEtiquetas(Set<String> etiquetas) {
 		this.tags = etiquetas;
 	}
-	public List<HashMap<String, String>> getPropiedades() {
+	public Set<Property> getPropiedades() {
 		return properties;
 	}
-	public void setPropiedades(List<HashMap<String, String>> propiedades) {
+	public void setPropiedades(Set<Property> propiedades) {
 		this.properties = propiedades;
 	}
 	public Agent getAgente() {

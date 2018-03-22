@@ -32,7 +32,7 @@ import javax.persistence.Table;
 		private String kind;
 		
 		//Unico añadido de la clase con respecto a la del otro proyecto
-		@OneToMany(mappedBy = "agente", orphanRemoval = true, fetch = FetchType.EAGER)
+		@OneToMany(mappedBy = "agent", orphanRemoval = true, fetch = FetchType.EAGER)
 		private Set<Incidence> incidencias;
 		/**
 		 * Constructor vacío (ya que es para mapear)
