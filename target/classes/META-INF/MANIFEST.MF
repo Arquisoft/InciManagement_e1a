@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Implementation-Title: InciManager_e1a
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: tinap
+Built-By: UO250687
 Implementation-Vendor-Id: com.asw
 Build-Jdk: 1.8.0_161
 Implementation-URL: http://projects.spring.io/spring-boot/InciManager_

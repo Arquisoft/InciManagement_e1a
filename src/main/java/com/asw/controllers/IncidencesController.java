@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.asw.Kafka.producer.KafkaProducer;
+//import com.asw.Kafka.producer.KafkaProducer;
 import com.asw.entities.Agent;
 import com.asw.entities.Incidence;
 import com.asw.services.AgentsService;
@@ -22,8 +22,8 @@ public class IncidencesController {
 	@Autowired
 	AgentsService agentsService;
 	
-	@Autowired
-	KafkaProducer producer;
+//	@Autowired
+//	KafkaProducer producer;
 
 	/*
 	 * Cada incidencia puede contener los siguientes campos: nombre de usuario y
@@ -48,7 +48,7 @@ public class IncidencesController {
 	public String signup(@ModelAttribute Incidence incidence, Model model) {
 		if(agentsService.sendAgent(incidence.getAgente()))	
 			incidencesService.addIncidence(incidence);
-			producer.send("incidence", incidence.toString());
+			//producer.send("incidence", incidence.toString());
 		
 			return "";
 	}
