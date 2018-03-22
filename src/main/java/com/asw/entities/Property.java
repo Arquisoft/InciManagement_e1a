@@ -1,11 +1,10 @@
 package com.asw.entities;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-@Entity
+//@Entity
 public class Property {
 	
 	@Id
