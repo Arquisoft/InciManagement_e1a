@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 //import com.asw.Kafka.producer.KafkaProducer;
 import com.asw.entities.Incidence;
+import com.asw.exception.UnauthorizedException;
 import com.asw.services.AgentsService;
 import com.asw.services.IncidencesService;
 
@@ -17,12 +18,12 @@ public class IncidencesController {
 
 	@Autowired
 	IncidencesService incidencesService;
-	
+
 	@Autowired
 	AgentsService agentsService;
-	
-//	@Autowired
-//	KafkaProducer producer;
+
+	// @Autowired
+	// KafkaProducer producer;
 
 	/*
 	 * Cada incidencia puede contener los siguientes campos: nombre de usuario y
@@ -35,26 +36,30 @@ public class IncidencesController {
 	 * propiedad.
 	 */
 
-//	@RequestMapping(value = "/add", method = RequestMethod.POST)
-//	public String addIncidencia(HttpSession session, @RequestParam String userName, @RequestParam String password,
-//			@RequestParam String inciName, @RequestParam String description, @RequestParam String latlong,
-//			@RequestParam String[] tags) {
-//
-//		return "";
-//	}
-	
+	// @RequestMapping(value = "/add", method = RequestMethod.POST)
+	// public String addIncidencia(HttpSession session, @RequestParam String
+	// userName, @RequestParam String password,
+	// @RequestParam String inciName, @RequestParam String description,
+	// @RequestParam String latlong,
+	// @RequestParam String[] tags) {
+	//
+	// return "";
+	// }
+
 	@RequestMapping(value = "/incidence/add", method = RequestMethod.POST)
-	public String signup(@ModelAttribute Incidence incidence, Model model) {
+	public String add(@ModelAttribute Incidence incidence, Model model) {
+		if (agentsService.checkAgent(incidence)) {
 			incidencesService.addIncidence(incidence);
-			//producer.send("incidence", incidence.toString());
-		
-			return "";
+			// producer.send("incidence", incidence.toString());
+			return "incidence/sent";
+		}
+		throw new UnauthorizedException();
 	}
-	
+
 	@RequestMapping(value = "/incidence/add", method = RequestMethod.GET)
-	public String signup(Model model) {
+	public String add(Model model) {
 		model.addAttribute("incidence", new Incidence());
-		return "/incidence/add";
+		return "incidence/add";
 	}
 
 }

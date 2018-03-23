@@ -2,29 +2,39 @@
 <html lang="en">
 
 <head> 
-	<title>Añadiendo incidencia</title>
+	<title>Aï¿½adiendo incidencia</title>
 </head>
 
 <body>
-	<!-- Barra de Navegación superior -->
+	<!-- Barra de Navegaciï¿½n superior -->
 	<div class="container">
 		<h2>Introduce los datos de la incidencia</h2>
 		<form class="form-horizontal" method="post" action="/incidence/add"
 			th:object="${incidence}">
 			
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="username">*Nombre de usuario:</label>
+				<label class="control-label col-sm-2" for="nombreAgente">*Nombre del agente:</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" name="username"
+					<input type="text" class="form-control" name="nombreAgente"
 						placeholder="Agente1" required="true" />
 				</div>
 			</div>
 			
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="password">*Password:</label>
+				<label class="control-label col-sm-2" for="passwordAgente">*Password:</label>
 				<div class="col-sm-10">
-					<input type="password" class="form-control" name="password"
-						placeholder="Introduzca su contraseña" required="true" />
+					<input type="password" class="form-control" name="passwordAgente"
+						placeholder="Introduzca su contraseï¿½a" required="true" />
+				</div>
+			</div>
+			
+			
+			
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="tipoAgente">*Kind:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" name="tipoAgente"
+						placeholder="por ej. Persona" required="true" />
 				</div>
 			</div>
 			
@@ -37,17 +47,17 @@
 			</div>
 			
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="description">*Descripción:</label>
+				<label class="control-label col-sm-2" for="description">*DescripciÃ³n:</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="description"
-						placeholder="descripción" required="true" /> 
+						placeholder="descripciÃ³n" required="true" /> 
 				</div>
 			</div>
 			
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="tags">*Etiquetas:</label>
 				<div class="col-sm-10">
-					<input type="password" class="form-control" name="tags"
+					<input type="text" class="form-control" name="etiquetas"
 						placeholder="etiqueta1, etiqueta2, etiqueta3..." required="true" /> 
 				</div>
 				
@@ -55,7 +65,7 @@
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="properties">Propiedades:</label>
 				<div class="col-sm-10">
-					<input type="password" class="form-control" name="passwordConfirm"
+					<input type="text" class="form-control" name="properties"
 						placeholder="propiedad1: valor1, propiedad2: valor2" /> 
 				</div>
 			</div>
