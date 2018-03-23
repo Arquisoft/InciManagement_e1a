@@ -1,3 +1,8 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0a046654f6854ebe8d1c43214f72337a)](https://www.codacy.com/app/jelabra/InciManager_e1a?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Arquisoft/InciManager_e1a&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.org/Arquisoft/InciManager_e1a.svg?branch=master)](https://travis-ci.org/Arquisoft/InciManager_e1a)
+[![codecov](https://codecov.io/gh/Arquisoft/InciManager_e1a/branch/master/graph/badge.svg)](https://codecov.io/gh/Arquisoft/InciManager_e1a)
+
+
 # InciManagement_e1a
 InciManagement e1a
 
