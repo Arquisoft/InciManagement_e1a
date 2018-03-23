@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 //import com.asw.Kafka.producer.KafkaProducer;
-import com.asw.entities.Agent;
 import com.asw.entities.Incidence;
 import com.asw.services.AgentsService;
 import com.asw.services.IncidencesService;
@@ -46,7 +45,6 @@ public class IncidencesController {
 	
 	@RequestMapping(value = "/incidence/add", method = RequestMethod.POST)
 	public String signup(@ModelAttribute Incidence incidence, Model model) {
-		if(agentsService.sendAgent(incidence.getAgente()))	
 			incidencesService.addIncidence(incidence);
 			//producer.send("incidence", incidence.toString());
 		

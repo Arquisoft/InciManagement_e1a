@@ -44,8 +44,6 @@ public class Incidence {
 
 	@OneToMany(mappedBy = "incidence", orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<Property> properties;
-	@ManyToOne
-	private Agent agent;
 	
 	public Incidence() {}
 	
@@ -59,14 +57,12 @@ public class Incidence {
 	 * @param etiquetas
 	 * @param agente
 	 */
-	public Incidence(String name, String descripcion, String location, Set<String> etiquetas,
-			 Agent agente) {
+	public Incidence(String name, String descripcion, String location, Set<String> etiquetas) {
 		super();
 		this.name = name;
 		this.description = descripcion;
 		this.location = location;
 		this.tags = etiquetas;
-		this.agent = agente;
 	}
 
 	/**
@@ -79,14 +75,13 @@ public class Incidence {
 	 * @param agente
 	 */
 	public Incidence(String name, String descripcion, String location, Set<String> etiquetas,
-			Set<Property> propiedades, Agent agente) {
+			Set<Property> propiedades) {
 		super();
 		this.name = name;
 		this.description = descripcion;
 		this.location = location;
 		this.tags = etiquetas;
 		this.properties = propiedades;
-		this.agent = agente;
 	}
 
 
@@ -120,12 +115,6 @@ public class Incidence {
 	}
 	public void setPropiedades(Set<Property> propiedades) {
 		this.properties = propiedades;
-	}
-	public Agent getAgente() {
-		return agent;
-	}
-	public void setAgente(Agent agente) {
-		this.agent = agente;
 	}
 	
 	
