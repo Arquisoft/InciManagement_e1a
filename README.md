@@ -23,7 +23,7 @@ InciManagement e1a
     
     - Linux: bin\kafka-server-start.bat config\server.properties
     
-5 La aplicacion esta disponible en: http://localhost:8090/incidence/add
+5 La aplicacion estará disponible en: http://localhost:8090/incidence/add
 
 # Authors
 
