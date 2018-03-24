@@ -17,7 +17,7 @@ public class IncidencesService {
 	KafkaProducer producer;
 	
 	public void addIncidence(Incidence incidence) {
-		producer.send("Entities", incidence.toString());
+		//producer.send("Entities", incidence.toString());
 		incidencesRepository.save(incidence);
 	}
 

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<title>Listar mis incidencias</title>
+</head>
+<body>
+
+	<div class="container" style="text-align: center">
+		<h2>Mis incidencias</h2>
+		<div th:if="${!incidences.isEmpty()}" class="container">
+			<div class="row" th:each="incidence : ${incidences}">
+				<div class="panel panel-default">
+					<dl>
+						<dd>Nombre incidencia</dd>
+						<dt th:text="${incidence.name}"></dt>
+						<dd>Descripción</dd>
+						<dt th:text="${incidence.description}"></dt>
+						<dd>Localización</dd>
+						<dt th:text="${incidence.location}"></dt>
+					</dl>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
