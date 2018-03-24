@@ -46,6 +46,11 @@ public class IncidencesController {
 	// return "";
 	// }
 
+	@RequestMapping(value = "/")
+	public String home() {
+		return "redirect:/incidence/add";
+	}
+
 	@RequestMapping(value = "/incidence/add", method = RequestMethod.POST)
 	public String add(@ModelAttribute Incidence incidence, Model model) {
 		if (agentsService.checkAgent(incidence)) {
