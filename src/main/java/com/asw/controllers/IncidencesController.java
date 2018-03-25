@@ -70,6 +70,17 @@ public class IncidencesController {
 	public String add(@ModelAttribute Incidence incidence, Model model) {
 		if (agentsService.checkAgent(incidence)) {
 			incidence.setLocation(agentsService.getLocation(incidence));
+			
+			System.out.println(incidence.toJson());
+			
+			incidence.addComment("Hola, estamos trabajando en esta incidencia");
+			incidence.addComment("Me dejé la radio en el coche, contactar conmigo por el móvil");
+			incidence.deleteTag("fuego");
+			incidence.deleteTag("peligro");
+			incidence.deleteTag("humo");
+			incidence.addPropertie("fuentes:ninguna");
+			incidence.addTag("nueva Etiqueta");
+			
 			incidencesService.addIncidence(incidence);
 			return "incidence/sent";
 		}

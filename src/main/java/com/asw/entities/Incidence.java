@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,16 +19,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 @Entity
 public class Incidence {
-	/*
-	 * Cada incidencia puede contener los siguientes campos: nombre de usuario y
-	 * password, nombre de la incidencia, descripción, localización (se obtendrá
-	 * automáticamente del dispositivo si es posible), etiquetas (lista de palabras
-	 * separadas por comas que permitirán categorizar las incidencias), información
-	 * adicional (fotos, vídeos, etc.). Algunas incidencias podrán también contener
-	 * una lista de campos con la forma "propiedad/valor", donde el campo propiedad
-	 * indica un nombre de propiedad, y el campo valor, indica el valor de dicha
-	 * propiedad.
-	 */
 
 	@Id
 	@GeneratedValue
@@ -102,18 +93,10 @@ public class Incidence {
 		properties = addString(newPropertie, properties);
 	}
 
-	private String addString(String newString, String field) {
-		String out = "";
-		if (field == null) {
-			out = newString.toLowerCase();
-		} else {
-			String[] strings = field.split(",");
-			for (String string : strings) {
-				out += string + ",";
-			}
-			out += newString.toLowerCase();
-		}
-		return out;
+	private String addString(String newString, String csv) {
+		List<String> list = toList(csv);
+		list.add(newString);
+		return toCsv(list);
 	}
 
 	public void addTag(String newTag) {
@@ -132,15 +115,10 @@ public class Incidence {
 		comments = deleteString(comment, comments);
 	}
 
-	private String deleteString(String stringToDelete, String field) {
-		String out = "";
-		for (String string : field.split(",")) {
-			if (!stringToDelete.toLowerCase().equals(string.trim().toLowerCase())) {
-				out += string.toLowerCase() + ",";
-			}
-		}
-		out = out.substring(0, out.length() - 1);
-		return out;
+	private String deleteString(String stringToDelete, String csv) {
+		List<String> list = toList(csv);
+		list.remove(stringToDelete);
+		return toCsv(list);
 	}
 
 	public void deleteTag(String tag) {
@@ -227,8 +205,8 @@ public class Incidence {
 
 	public Map<String, String> getPropertyMap() {
 		Map<String, String> out = new HashMap<>();
-		for (String propertie : properties.split(",")) {
-			out.put(propertie.split(":")[0], propertie.split(":")[1]);
+		for (String property : properties.split(",")) {
+			out.put(property.split(":")[0].trim(), property.split(":")[1].trim());
 		}
 		return out;
 	}
@@ -302,24 +280,10 @@ public class Incidence {
 		this.tipoAgente = tipoAgente;
 	}
 
-	private String toArrayFields(String field) {
-		String fields = "[";
-		if (field != null) {
-			for (String info : field.split(",")) {
-				fields += "\"" + info.trim() + "\",";
-			}
-			if (fields.charAt(fields.length() - 1) == ',') {
-				fields = fields.substring(0, fields.length() - 1);
-			}
-		}
-		return fields += "]";
+	private String toArrayFields(String csv) {
+		return "[" + toList(csv).stream().map(f -> "\"" + f + "\"").collect(Collectors.joining(",")) + "]";
 	}
 
-	/**
-	 * A mano porque estoy como un burro ...
-	 * 
-	 * @return
-	 */
 	public String toJson() {
 		String json = "{";
 		json += "\"agent\":{\"name\":\"" + nombreAgente + "\",\"password\":\"" + passwordAgente + "\",\"kind\":\""
@@ -344,10 +308,15 @@ public class Incidence {
 		return json;
 	}
 
-	private List<String> toList(String field) {
+	private String toCsv(List<String> values) {
+		return values == null ? null
+				: values.stream().map(v -> v.trim().toLowerCase()).collect(Collectors.joining(","));
+	}
+
+	private List<String> toList(String csv) {
 		List<String> out = new ArrayList<>();
-		if (field != null) {
-			for (String tag : field.split(",")) {
+		if (csv != null) {
+			for (String tag : csv.split(",")) {
 				out.add(tag.toLowerCase().trim());
 			}
 		}
