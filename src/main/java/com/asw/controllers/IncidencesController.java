@@ -71,6 +71,10 @@ public class IncidencesController {
 		if (agentsService.checkAgent(incidence.getNombreAgente(), incidence.getPasswordAgente(),
 				incidence.getTipoAgente())) {
 			incidencesService.addIncidence(incidence);
+			incidence.addComment("hola estamos aquí");
+			incidence.addComment("pues yo el fuego no lo veo eh ...");
+			incidence.addTag("etiqueta");
+			incidence.deleteTag("FUEGO");
 			return "incidence/sent";
 		}
 		throw new UnauthorizedException();
