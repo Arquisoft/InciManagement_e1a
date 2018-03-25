@@ -23,7 +23,11 @@ InciManagement e1a
     
     - Linux: bin\kafka-server-start.bat config\server.properties
     
-5 La aplicacion estará disponible en: http://localhost:8090/incidence/add
+5 La aplicacion estará disponible en: http://localhost:8090
+
+6 Se redirige automáticamente a /incidence/add desde donde un agente podrá registrar una nueva incidencia a través de un formulario
+
+7 Si los datos introducidos son correctos, la incidencia será procesada y el agente podrá consultar el estado de la misma accediendo al listado de todas sus incidencias /incidence/list
 
 # Authors
 
