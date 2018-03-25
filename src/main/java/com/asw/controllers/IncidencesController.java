@@ -1,13 +1,15 @@
 package com.asw.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-//import com.asw.Kafka.producer.KafkaProducer;
 import com.asw.entities.Incidence;
 import com.asw.exception.UnauthorizedException;
 import com.asw.services.AgentsService;
@@ -21,9 +23,6 @@ public class IncidencesController {
 
 	@Autowired
 	AgentsService agentsService;
-
-	// @Autowired
-	// KafkaProducer producer;
 
 	/*
 	 * Cada incidencia puede contener los siguientes campos: nombre de usuario y
@@ -46,11 +45,36 @@ public class IncidencesController {
 	// return "";
 	// }
 
+	@RequestMapping(value = "/incidence/list")
+	public String listIncidences() {
+		return "incidence/auth";
+	}
+
+	@RequestMapping(value = "/incidence/list", method = RequestMethod.POST)
+	public String listIncidences(Model model, @RequestParam("nombreAgente") String userName,
+			@RequestParam("passwordAgente") String password, @RequestParam("tipoAgente") String kind) {
+		if (agentsService.checkAgent(userName, password, kind)) {
+			List<Incidence> incidences = incidencesService.getIncidencesFor(userName);
+			model.addAttribute("incidences", incidences);
+			return "incidence/list";
+		}
+		throw new UnauthorizedException();
+	}
+
+	@RequestMapping(value = "/")
+	public String home() {
+		return "redirect:/incidence/add";
+	}
+
 	@RequestMapping(value = "/incidence/add", method = RequestMethod.POST)
 	public String add(@ModelAttribute Incidence incidence, Model model) {
-		if (agentsService.checkAgent(incidence)) {
+		if (agentsService.checkAgent(incidence.getNombreAgente(), incidence.getPasswordAgente(),
+				incidence.getTipoAgente())) {
 			incidencesService.addIncidence(incidence);
-			// producer.send("incidence", incidence.toString());
+			incidence.addComment("hola estamos aquí");
+			incidence.addComment("pues yo el fuego no lo veo eh ...");
+			incidence.addTag("etiqueta");
+			incidence.deleteTag("FUEGO");
 			return "incidence/sent";
 		}
 		throw new UnauthorizedException();

@@ -1,8 +1,12 @@
 package com.asw.entities;
 
+import java.io.IOException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author fernando
@@ -31,23 +35,17 @@ public class Incidence {
 	private String passwordAgente;
 	private String tipoAgente;
 	private String etiquetas;
-	private String properties;
-
-	/*
-	@ElementCollection
-	@CollectionTable(name = "tags", joinColumns = @JoinColumn(name = "tag_id"))
-	@Column(name = "tag")
-	private Set<String> tags; // lista de etiquetas
-	@OneToMany(mappedBy = "incidence", orphanRemoval = true, fetch = FetchType.EAGER)
-	private Set<Property> properties;
-	*/
-	
+	private String properties = "";
+	private IncidenceState state = IncidenceState.OPENED;
+	private String expiration;
+	private String comments;
+	private String additionalInfo;
 
 	public Incidence() {
-		
+
 	}
 
-	public Long getId() { 
+	public Long getId() {
 		return id;
 	}
 
@@ -164,38 +162,102 @@ public class Incidence {
 		this.location = location;
 	}
 
-	/*
-	public Set<String> getEtiquetas() {
-		return tags;
+	public void addTag(String newTag) {
+		etiquetas = addString(newTag, etiquetas);
 	}
 
-	public Set<String> getTags() {
-		return tags;
-	}
-	
-	public void setEtiquetas(Set<String> etiquetas) {
-		this.tags = etiquetas;
+	public void addPropertie(String newPropertie) {
+		properties = addString(newPropertie, properties);
 	}
 
-	public Set<Property> getPropiedades() {
-		return properties;
+	private String addString(String newString, String field) {
+		String out = "";
+		if (field == null) {
+			out = newString.toLowerCase();
+		} else {
+			String[] strings = field.split(",");
+			for (String string : strings) {
+				out += string + ",";
+			}
+			out += newString.toLowerCase();
+		}
+		return out;
 	}
-	
-	public void setPropiedades(Set<Property> propiedades) {
-		this.properties = propiedades;
-	}
-	
-	public Set<Property> getProperties() {
-		return properties;
-	}
-	*/
 
+	public void addComment(String newComment) {
+		comments = addString(newComment, comments);
+	}
+
+	public void deleteComment(String comment) {
+		comments = deleteString(comment, comments);
+	}
+
+	public void deleteTag(String tag) {
+		etiquetas = deleteString(tag, etiquetas);
+	}
+
+	private String deleteString(String stringToDelete, String field) {
+		String out = "";
+		for (String string : field.split(",")) {
+			if (!stringToDelete.toLowerCase().equals(string.trim().toLowerCase())) {
+				out += string.toLowerCase() + ",";
+			}
+		}
+		out = out.substring(0, out.length() - 1);
+		return out;
+	}
+
+	/**
+	 * A mano porque estoy como un burro ...
+	 * 
+	 * @return
+	 */
+	public String toJson() {
+		String json = "{";
+		json += "\"agent\":{\"name\":\"" + nombreAgente + "\",\"password\":\"" + passwordAgente + "\",\"kind\":\""
+				+ tipoAgente + "\"},";
+		json += "\"name\":\"" + name + "\",";
+		json += "\"description\":\"" + description + "\",";
+		json += "\"location\":\"" + location + "\",";
+		json += "\"tags\":" + toArrayFields(etiquetas) + ",";
+		json += "\"aditionalInfo\":" + toArrayFields(additionalInfo) + ",";
+		json += "\"properties\":{";
+		for (String propertie : properties.split(",")) {
+			json += "\"" + propertie.split(":")[0] + "\":\"" + propertie.split(":")[1] + "\",";
+		}
+		if (json.charAt(json.length() - 1) == ',') {
+			json = json.substring(0, json.length() - 1);
+		}
+		json += "},";
+		json += "\"state\":\"" + state.toString() + "\",";
+		json += "\"comments\":" + toArrayFields(comments) + ",";
+		json += "\"expiration\":\"" + expiration + "\"";
+		json += "}";
+		return json;
+	}
+
+	private String toArrayFields(String field) {
+		String fields = "[";
+		if (field != null) {
+			for (String info : field.split(",")) {
+				fields += "\"" + info.trim() + "\",";
+			}
+			if (fields.charAt(fields.length() - 1) == ',') {
+				fields = fields.substring(0, fields.length() - 1);
+			}
+		}
+		return fields += "]";
+	}
 
 	@Override
 	public String toString() {
-		return "Incidence [id=" + id + ", name=" + name + ", description=" + description + ", location=" + location
-				+ ", nombreAgente=" + nombreAgente + ", passwordAgente=" + passwordAgente + ", tipoAgente=" + tipoAgente
-				+ ", etiquetas=" + etiquetas + ", properties=" + properties + "]";
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			Object obj = mapper.readValue(toJson(), Object.class);
+			return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
+		} catch (IOException e) {
+			return "problema con json ... ";
+		}
 	}
 
 	@Override
@@ -227,6 +289,22 @@ public class Incidence {
 		} else if (!nombreAgente.equals(other.nombreAgente))
 			return false;
 		return true;
+	}
+
+	public void close() {
+		state = IncidenceState.CLOSED;
+	}
+
+	public void cancel() {
+		state = IncidenceState.CANCELED;
+	}
+
+	public void open() {
+		state = IncidenceState.OPENED;
+	}
+
+	public void process() {
+		state = IncidenceState.IN_PROCESS;
 	}
 
 }
