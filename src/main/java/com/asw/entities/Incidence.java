@@ -85,11 +85,11 @@ public class Incidence {
 		this.tipoAgente = tipoAgente;
 	}
 
-	public void addComment(String newComment) {
+	public void addComments(String newComment) {
 		comments = addString(newComment, comments);
 	}
 
-	public void addPropertie(String newPropertie) {
+	public void addProperties(String newPropertie) {
 		properties = addString(newPropertie, properties);
 	}
 
@@ -99,7 +99,7 @@ public class Incidence {
 		return toCsv(list);
 	}
 
-	public void addTag(String newTag) {
+	public void addTags(String newTag) {
 		etiquetas = addString(newTag, etiquetas);
 	}
 
@@ -309,7 +309,7 @@ public class Incidence {
 	}
 
 	private String toCsv(List<String> values) {
-		return values == null ? null
+		return values == null || values.isEmpty() ? null
 				: values.stream().map(v -> v.trim().toLowerCase()).collect(Collectors.joining(","));
 	}
 

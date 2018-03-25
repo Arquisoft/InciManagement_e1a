@@ -73,13 +73,13 @@ public class IncidencesController {
 			
 			System.out.println(incidence.toJson());
 			
-			incidence.addComment("Hola, estamos trabajando en esta incidencia");
-			incidence.addComment("Me dejé la radio en el coche, contactar conmigo por el móvil");
+			incidence.addComments("Estamos trabajando en esta incidencia");
+			incidence.addComments("Me dejé la radio en el coche; contactar conmigo por el móvil");
 			incidence.deleteTag("fuego");
 			incidence.deleteTag("peligro");
 			incidence.deleteTag("humo");
-			incidence.addPropertie("fuentes:ninguna");
-			incidence.addTag("nueva Etiqueta");
+			incidence.addProperties("previsión meteorológica:viento fuerte");
+			incidence.addTags("fuego, humo, peligro");
 			
 			incidencesService.addIncidence(incidence);
 			return "incidence/sent";
