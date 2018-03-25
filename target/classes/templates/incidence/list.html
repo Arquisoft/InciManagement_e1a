@@ -9,20 +9,49 @@
 </head>
 <body>
 
-	<div class="container" style="text-align: center">
+	<div class="d-flex justify-content-end" style="text-align: center">
 		<h2>Mis incidencias</h2>
 		<div th:if="${!incidences.isEmpty()}" class="container">
 			<div class="row" th:each="incidence : ${incidences}">
 				<div class="panel panel-default">
+					<h2>Nombre incidencia</h2>
+					<p th:text="${incidence.name}">
+					</dt>
+					<h2>Descripci贸n</h2>
+					<p th:text="${incidence.description}">
+					</dt>
+					<h2>Localizaci贸n</h2>
+					<p th:text="${incidence.location}">
+					</dt>
+					<h2>Etiquetas</h2>
+					<ul>
+						<div th:each="tag : ${incidence.getTagList()}">
+							<li th:text="${tag}"></li>
+						</div>
+					</ul>
+					<h2>propiedades</h2>
 					<dl>
-						<dd>Nombre incidencia</dd>
-						<dt th:text="${incidence.name}"></dt>
-						<dd>Descripci髇</dd>
-						<dt th:text="${incidence.description}"></dt>
-						<dd>Localizaci髇</dd>
-						<dt th:text="${incidence.location}"></dt>
+						<div th:each="pair : ${incidence.getPropertyMap()}">
+							<dd th:text="${pair.key}"></dd>
+							<dt th:text="${pair.value}"></dt>
+						</div>
 					</dl>
-					<pre th:text="${incidence.toString()}"></pre>
+					<h3>Estado</h3>
+					<p th:text="${incidence.state}"></p>
+					<h3>Expiraci贸n</h3>
+					<p th:text="${incidence.expiration}">
+					<h3>Comentarios</h3>
+					<ul>
+						<div th:each="comment : ${incidence.getCommentList()}">
+							<li th:text="${comment}"></li>
+						</div>
+					</ul>
+					<h3>Informaci贸n adicional</h3>
+					<ul>
+						<div th:each="info : ${incidence.getInfoList()}">
+							<li th:text="${info}"></li>
+						</div>
+					</ul>
 				</div>
 			</div>
 		</div>

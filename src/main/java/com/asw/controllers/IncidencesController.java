@@ -68,13 +68,9 @@ public class IncidencesController {
 
 	@RequestMapping(value = "/incidence/add", method = RequestMethod.POST)
 	public String add(@ModelAttribute Incidence incidence, Model model) {
-		if (agentsService.checkAgent(incidence.getNombreAgente(), incidence.getPasswordAgente(),
-				incidence.getTipoAgente())) {
+		if (agentsService.checkAgent(incidence)) {
+			incidence.setLocation(agentsService.getLocation(incidence));
 			incidencesService.addIncidence(incidence);
-			incidence.addComment("hola estamos aquí");
-			incidence.addComment("pues yo el fuego no lo veo eh ...");
-			incidence.addTag("etiqueta");
-			incidence.deleteTag("FUEGO");
 			return "incidence/sent";
 		}
 		throw new UnauthorizedException();
