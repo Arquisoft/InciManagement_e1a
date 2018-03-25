@@ -8,54 +8,53 @@
 <title>Listar mis incidencias</title>
 </head>
 <body>
-
-	<div class="d-flex justify-content-end" style="text-align: center">
+	<div class="container">
 		<h2>Mis incidencias</h2>
 		<div th:if="${!incidences.isEmpty()}" class="container">
 			<div class="row" th:each="incidence : ${incidences}">
-				<div class="panel panel-default">
-					<h2>Nombre incidencia</h2>
-					<p th:text="${incidence.name}">
+				<div class="panel panel-default"
+					style="text-align: left; margin-left: 1%;">
+					<h3 style="margin-left: 1%;">Nombre incidencia</h3>
+					<p style="margin-left: 3%;" th:text="${incidence.name}">
 					</dt>
-					<h2>Descripción</h2>
-					<p th:text="${incidence.description}">
+					<h3 style="margin-left: 1%;">Descripción</h3>
+					<p style="margin-left: 3%;" th:text="${incidence.description}">
 					</dt>
-					<h2>Localización</h2>
-					<p th:text="${incidence.location}">
+					<h3 style="margin-left: 1%;">Localización</h3>
+					<p style="margin-left: 3%;" th:text="${incidence.location}">
 					</dt>
-					<h2>Etiquetas</h2>
+					<h3 style="margin-left: 1%;">Etiquetas</h3>
 					<ul>
 						<div th:each="tag : ${incidence.getTagList()}">
-							<li th:text="${tag}"></li>
+							<li style="margin-left: 3%;" th:text="${tag}"></li>
 						</div>
 					</ul>
-					<h2>propiedades</h2>
+					<h3 style="margin-left: 1%;">propiedades</h3>
 					<dl>
 						<div th:each="pair : ${incidence.getPropertyMap()}">
-							<dd th:text="${pair.key}"></dd>
-							<dt th:text="${pair.value}"></dt>
+							<dd style="margin-left: 3%;" th:text="${pair.key}"></dd>
+							<dt style="margin-left: 5%;" th:text="${pair.value}"></dt>
 						</div>
 					</dl>
-					<h3>Estado</h3>
-					<p th:text="${incidence.state}"></p>
-					<h3>Expiración</h3>
-					<p th:text="${incidence.expiration}">
-					<h3>Comentarios</h3>
+					<h3 style="margin-left: 1%;">Estado</h3>
+					<p style="margin-left: 3%;" th:text="${incidence.state}"></p>
+					<h3 style="margin-left: 1%;">Expiración</h3>
+					<p style="margin-left: 3%;" th:text="${incidence.expiration}">
+					<h3 style="margin-left: 1%;">Comentarios</h3>
 					<ul>
 						<div th:each="comment : ${incidence.getCommentList()}">
-							<li th:text="${comment}"></li>
+							<li style="margin-left: 3%;" th:text="${comment}"></li>
 						</div>
 					</ul>
-					<h3>Información adicional</h3>
+					<h3 style="margin-left: 1%;">Información adicional</h3>
 					<ul>
 						<div th:each="info : ${incidence.getInfoList()}">
-							<li th:text="${info}"></li>
+							<li style="margin-left: 3%;" th:text="${info}"></li>
 						</div>
 					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>
