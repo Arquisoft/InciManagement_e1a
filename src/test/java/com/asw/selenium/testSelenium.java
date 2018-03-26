@@ -22,13 +22,13 @@ public class testSelenium {
     driver.get(baseUrl + "/");
   }
 
-  @Test
+  //@Test
   public void test01() {
 	  
 	  //En primer lugar comprobamos que somos redirigidos a la pagina correcta
 	  Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8090/incidence/add");
 }
-  @Test
+  //@Test
   public void test02() {
 	//rellenamos con unos datos incorrectos
 	fillForm(driver,"usuarioJuan","12345","Person","Nevada","gran nevada en el Angliru","nieve,4x4,idiotas","Frio:extremo,altitud:mucha");
@@ -37,7 +37,7 @@ public class testSelenium {
 	assertTrue(list.size() > 0);
 }
   
-  @Test
+  //@Test
   public void test03() {
 		
 	  //Rellenamos el formulario con datos correctos
@@ -55,7 +55,7 @@ public class testSelenium {
 	 
 }
   
-  @Test
+  //@Test
   public void test04() {
 	  fillLogin(driver,"usuarioJuan","324","Person");
 	  String texto= "Los datos de agente de la incidencia no son válidos";
