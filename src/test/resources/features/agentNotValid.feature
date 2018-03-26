@@ -6,5 +6,5 @@ Escenario: Un agente tiene datos incorrectos
 Dado un agente con nombre "Pepe", contraseña "", tipo 1
 Y autorizado en el sistema
 Cuando el agente con nombre "Pepe" envía una incidencia
-Entonces el sistema no autoriza el envío de la inciadencia
+Entonces el sistema no autoriza el envío de la incidencia
 Y se muestra un error
