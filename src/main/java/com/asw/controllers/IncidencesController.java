@@ -72,14 +72,14 @@ public class IncidencesController {
 			incidence.setLocation(agentsService.getLocation(incidence));
 			
 			System.out.println(incidence.toJson());
-			
+			/*
 			incidence.addComments("Estamos trabajando en esta incidencia");
 			incidence.addComments("Me dejé la radio en el coche; contactar conmigo por el móvil");
 			incidence.deleteTag("fuego");
 			incidence.deleteTag("peligro");
 			incidence.deleteTag("humo");
 			incidence.addProperties("previsión meteorológica:viento fuerte");
-			incidence.addTags("fuego, humo, peligro");
+			incidence.addTags("fuego, humo, peligro");*/
 			
 			incidencesService.addIncidence(incidence);
 			return "incidence/sent";
