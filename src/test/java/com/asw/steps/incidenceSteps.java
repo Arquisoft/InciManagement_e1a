@@ -25,8 +25,8 @@ public class incidenceSteps {
 	    throw new PendingException();
 	}
 
-	@Entonces("^el sistema autoriza el envío de la inciadencia$")
-	public void el_sistema_autoriza_el_envío_de_la_inciadencia() throws Throwable {
+	@Entonces("^el sistema autoriza el envío de la incidencia$")
+	public void el_sistema_autoriza_el_envío_de_la_incidencia() throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
 	    throw new PendingException();
 	}
