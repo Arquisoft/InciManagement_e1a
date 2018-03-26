@@ -36,11 +36,12 @@ import com.asw.InciManagerApplication;
 @IntegrationTest({ "server.port=0" })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class InciManagerTests {
-	
+
 	private static final Logger logger = Logger.getLogger(InciManagerTests.class);
 
 	@Value("${local.server.port}")
 	private int port;
+	String base = "http://localhost:8090/";
 
 	private RestTemplate template = new TestRestTemplate();;
 
@@ -51,7 +52,7 @@ public class InciManagerTests {
 
 	@Test
 	public void t1_incidenciaDatosAgenteValidos() {
-		String url = "http://localhost:8090/incidence/add";
+		String url = base + "incidence/add";
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(url);
 		HttpResponse response = null;
@@ -72,10 +73,10 @@ public class InciManagerTests {
 		}
 		assertTrue(response.getStatusLine().getStatusCode() == 200);
 	}
-	
+
 	@Test
 	public void t1_incidenciaDatosAgenteInvalidos() {
-		String url = "http://localhost:8090/incidence/add";
+		String url = base + "incidence/add";
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(url);
 		HttpResponse response = null;
@@ -94,6 +95,6 @@ public class InciManagerTests {
 		} catch (IOException e) {
 			fail();
 		}
-		assertEquals(response.getStatusLine().getStatusCode() , 401);
+		assertEquals(response.getStatusLine().getStatusCode(), 401);
 	}
 }

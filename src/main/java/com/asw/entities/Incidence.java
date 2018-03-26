@@ -159,8 +159,12 @@ public class Incidence {
 
 	public Map<String, String> getPropertyMap() {
 		Map<String, String> out = new HashMap<>();
-		for (String property : properties.split(",")) {
-			out.put(property.split(":")[0].trim(), property.split(":")[1].trim());
+		try {
+			for (String property : properties.split(",")) {
+				out.put(property.split(":")[0].trim(), property.split(":")[1].trim());
+			}
+		} catch (Exception e) {
+
 		}
 		return out;
 	}
