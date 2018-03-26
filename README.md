@@ -6,12 +6,12 @@
 # InciManagement_e1a
 InciManagement e1a
 
-# Ejecucion del proyecto 
-1 Si no lo tenenemos descargamos Kafka desde aqui: https://kafka.apache.org/downloads
+# Ejecución del proyecto 
+1 Si no lo tenenemos, descargamos Kafka desde aqui: https://kafka.apache.org/downloads
 
-2 Ejecutamos en una consola de comandos desde la carpeta principal de Kafka la siguiente orden:  mvn spring-boot:run
+2 Ejecutamos en una consola de comandos desde la carpeta principal del proyecto la siguiente orden:  mvn spring-boot:run
 
-3 Desde otra consola de comandos ejecutamos:
+3 Desde otra consola de comandos, situándonos en la carpeta de Kafka descargada, ejecutamos:
     
     - Windows: bin\windows\zookeeper-server-start.bat config\zookeeper.properties
     
