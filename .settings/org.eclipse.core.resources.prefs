@@ -1,8 +1,11 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
+<<<<<<< HEAD
 encoding//src/main/resources/templates/incidence/add.html=UTF-8
 encoding//src/main/resources/templates/incidence/list.html=UTF-8
 encoding//src/main/resources/templates/incidence/sent.html=UTF-8
+=======
+>>>>>>> refs/remotes/origin/david_chillon
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8
