@@ -1,4 +1,4 @@
-package es.uniovi.asw.steps;
+package com.asw.steps;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
