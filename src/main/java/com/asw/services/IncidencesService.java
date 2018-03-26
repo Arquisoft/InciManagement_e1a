@@ -24,5 +24,20 @@ public class IncidencesService {
 	public List<Incidence> getIncidencesFor(String userName) {
 		return incidencesRepository.findByNombreAgente(userName);
 	}
+	
+	public void closeIncidence(Incidence incidence) {
+		incidence.close();
+		incidencesRepository.save(incidence);
+	}
+	
+	public void processIncidence(Incidence incidence) {
+		incidence.process();
+		incidencesRepository.save(incidence);
+	}
+	
+	public void cancelIncidence(Incidence incidence) {
+		incidence.cancel();
+		incidencesRepository.save(incidence);
+	}
 
 }
