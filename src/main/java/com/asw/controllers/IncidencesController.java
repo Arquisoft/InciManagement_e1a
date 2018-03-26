@@ -67,20 +67,17 @@ public class IncidencesController {
 	}
 
 	@RequestMapping(value = "/incidence/add", method = RequestMethod.POST)
-	public String add(@ModelAttribute Incidence incidence, Model model) {
+	public String add(@RequestParam String nombreAgente, 
+			@RequestParam String passwordAgente,
+			@RequestParam String tipoAgente, 
+			@RequestParam String name,
+			@RequestParam String description,
+			@RequestParam String etiquetas, 
+			@RequestParam String properties) {
+		Incidence incidence = new Incidence(nombreAgente, passwordAgente, tipoAgente, name, description, etiquetas,
+				properties);
 		if (agentsService.checkAgent(incidence)) {
 			incidence.setLocation(agentsService.getLocation(incidence));
-			
-			System.out.println(incidence.toJson());
-			
-			incidence.addComments("Estamos trabajando en esta incidencia");
-			incidence.addComments("Me dejé la radio en el coche; contactar conmigo por el móvil");
-			incidence.deleteTag("fuego");
-			incidence.deleteTag("peligro");
-			incidence.deleteTag("humo");
-			incidence.addProperties("previsión meteorológica:viento fuerte");
-			incidence.addTags("fuego, humo, peligro");
-			
 			incidencesService.addIncidence(incidence);
 			return "incidence/sent";
 		}
@@ -89,7 +86,6 @@ public class IncidencesController {
 
 	@RequestMapping(value = "/incidence/add", method = RequestMethod.GET)
 	public String add(Model model) {
-		model.addAttribute("incidence", new Incidence());
 		return "incidence/add";
 	}
 
