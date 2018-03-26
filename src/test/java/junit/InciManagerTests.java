@@ -37,8 +37,6 @@ import com.asw.InciManagerApplication;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class InciManagerTests {
 
-	private static final Logger logger = Logger.getLogger(InciManagerTests.class);
-
 	@Value("${local.server.port}")
 	private int port;
 	String base = "http://localhost:8090/";
