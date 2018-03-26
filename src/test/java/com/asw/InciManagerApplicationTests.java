@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.asw.util.PO_AddView;
+import com.asw.util.PO_ListView;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -23,7 +24,7 @@ public class InciManagerApplicationTests {
 
 	// En Windows (Debe ser la versión 46.0 y desactivar las actualizacioens
 	// automáticas)):
-	static String PathFirefox = "C:/Users/tinap/Downloads/Firefox46.0.win/Firefox46.win/FirefoxPortable.exe";
+	static String PathFirefox = "C:\\Users\\darid\\Desktop\\Firefox46.win\\FirefoxPortable.exe";
 	// Común a Windows y a MACOSX
 	static WebDriver driver = getDriver(PathFirefox);
 	static String URL = "http://localhost:8090";
@@ -65,5 +66,30 @@ public class InciManagerApplicationTests {
 		PO_AddView.fillForm(driver, "usuarioJuan", "password", "Person", "inci", "ojioj", "joij", "jdoiw:iwi");
 		PO_AddView.checkElement(driver, "text", "Incidencia enviada");
 	}
+	
+	@Test
+	public void testAddFailBadPassword() {
+		PO_AddView.fillForm(driver, "usuarioJuan", "pass", "Person", "inci", "ojioj", "joij", "jdoiw:iwi");
+		PO_AddView.checkElement(driver, "text", "Error 401");
+	}
+	
+	@Test
+	public void testAddServerError() {
+		PO_AddView.fillForm(driver, "usuarioJuan", "password", "Person", "fasdf", "asfd", "asfd", "asdf");
+		PO_AddView.checkElement(driver, "text", "Error 500");
+	}
+	
+	@Test
+	public void testList() {
+		driver.navigate().to("http://localhost:8090/incidence/list");
+		PO_ListView.fillForm(driver, "usuarioJuan", "password", "Person");
+		PO_ListView.checkElement(driver, "text", "Mis incidencias");
+	}
 
+	@Test
+	public void testListBadPassword() {
+		driver.navigate().to("http://localhost:8090/incidence/list");
+		PO_ListView.fillForm(driver, "usuarioJuan", "pass", "Person");
+		PO_ListView.checkElement(driver, "text", "Error 401");
+	}
 }
