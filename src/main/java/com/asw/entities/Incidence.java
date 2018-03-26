@@ -40,46 +40,12 @@ public class Incidence {
 
 	}
 
-	/**
-	 * Constructor con todos los parametros menos propiedades
-	 * 
-	 * @param name
-	 * @param descripcion
-	 * @param location
-	 * @param etiquetas
-	 * @param agente
-	 */
-	public Incidence(String name, String descripcion, String location, String etiquetas, String nombreAgente,
-			String passwordAgente, String tipoAgente) {
-		super();
+	public Incidence(String nombreAgente, String passwordAgente, String tipoAgente, String name, String description,
+			String etiquetas, String properties) {
 		this.name = name;
-		this.description = descripcion;
-		this.location = location;
+		this.description = description;
 		this.etiquetas = etiquetas;
-		this.nombreAgente = nombreAgente;
-		this.passwordAgente = passwordAgente;
-		this.tipoAgente = tipoAgente;
-	}
-
-	/**
-	 * Constructor con todos los campos
-	 * 
-	 * @param name
-	 * @param descripcion
-	 * @param location
-	 * @param etiquetas
-	 * @param propiedades
-	 * @param agente
-	 */
-
-	public Incidence(String name, String descripcion, String location, String etiquetas, String propiedades,
-			String nombreAgente, String passwordAgente, String tipoAgente) {
-		super();
-		this.name = name;
-		this.description = descripcion;
-		this.location = location;
-		this.etiquetas = etiquetas;
-		this.properties = propiedades;
+		this.properties = properties;
 		this.nombreAgente = nombreAgente;
 		this.passwordAgente = passwordAgente;
 		this.tipoAgente = tipoAgente;
