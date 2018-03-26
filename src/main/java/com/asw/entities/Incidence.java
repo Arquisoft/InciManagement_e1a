@@ -1,7 +1,6 @@
 package com.asw.entities;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import com.asw.util.Util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -86,21 +86,15 @@ public class Incidence {
 	}
 
 	public void addComments(String newComment) {
-		comments = addString(newComment, comments);
+		comments = Util.addString(newComment, comments);
 	}
 
 	public void addProperties(String newPropertie) {
-		properties = addString(newPropertie, properties);
-	}
-
-	private String addString(String newString, String csv) {
-		List<String> list = toList(csv);
-		list.add(newString);
-		return toCsv(list);
+		properties = Util.addString(newPropertie, properties);
 	}
 
 	public void addTags(String newTag) {
-		etiquetas = addString(newTag, etiquetas);
+		etiquetas = Util.addString(newTag, etiquetas);
 	}
 
 	public void cancel() {
@@ -112,17 +106,11 @@ public class Incidence {
 	}
 
 	public void deleteComment(String comment) {
-		comments = deleteString(comment, comments);
-	}
-
-	private String deleteString(String stringToDelete, String csv) {
-		List<String> list = toList(csv);
-		list.remove(stringToDelete);
-		return toCsv(list);
+		comments = Util.deleteString(comment, comments);
 	}
 
 	public void deleteTag(String tag) {
-		etiquetas = deleteString(tag, etiquetas);
+		etiquetas = Util.deleteString(tag, etiquetas);
 	}
 
 	@Override
@@ -152,7 +140,7 @@ public class Incidence {
 	}
 
 	public List<String> getCommentList() {
-		return toList(comments);
+		return Util.toList(comments);
 	}
 
 	public String getComments() {
@@ -180,7 +168,7 @@ public class Incidence {
 	}
 
 	public List<String> getInfoList() {
-		return toList(additionalInfo);
+		return Util.toList(additionalInfo);
 	}
 
 	public String getLocation() {
@@ -216,7 +204,7 @@ public class Incidence {
 	}
 
 	public List<String> getTagList() {
-		return toList(etiquetas);
+		return Util.toList(etiquetas);
 	}
 
 	public String getTipoAgente() {
@@ -280,10 +268,6 @@ public class Incidence {
 		this.tipoAgente = tipoAgente;
 	}
 
-	private String toArrayFields(String csv) {
-		return "[" + toList(csv).stream().map(f -> "\"" + f + "\"").collect(Collectors.joining(",")) + "]";
-	}
-
 	public String toJson() {
 		String json = "{";
 		json += "\"agent\":{\"name\":\"" + nombreAgente + "\",\"password\":\"" + passwordAgente + "\",\"kind\":\""
@@ -291,8 +275,8 @@ public class Incidence {
 		json += "\"name\":\"" + name + "\",";
 		json += "\"description\":\"" + description + "\",";
 		json += "\"location\":\"" + location + "\",";
-		json += "\"tags\":" + toArrayFields(etiquetas) + ",";
-		json += "\"aditionalInfo\":" + toArrayFields(additionalInfo) + ",";
+		json += "\"tags\":" + Util.toJsonArray(etiquetas) + ",";
+		json += "\"aditionalInfo\":" + Util.toJsonArray(additionalInfo) + ",";
 		json += "\"properties\":{";
 		for (String propertie : properties.split(",")) {
 			json += "\"" + propertie.split(":")[0] + "\":\"" + propertie.split(":")[1] + "\",";
@@ -302,25 +286,10 @@ public class Incidence {
 		}
 		json += "},";
 		json += "\"state\":\"" + state.toString() + "\",";
-		json += "\"comments\":" + toArrayFields(comments) + ",";
+		json += "\"comments\":" + Util.toJsonArray(comments) + ",";
 		json += "\"expiration\":\"" + expiration + "\"";
 		json += "}";
 		return json;
-	}
-
-	private String toCsv(List<String> values) {
-		return values == null || values.isEmpty() ? null
-				: values.stream().map(v -> v.trim().toLowerCase()).collect(Collectors.joining(","));
-	}
-
-	private List<String> toList(String csv) {
-		List<String> out = new ArrayList<>();
-		if (csv != null) {
-			for (String tag : csv.split(",")) {
-				out.add(tag.toLowerCase().trim());
-			}
-		}
-		return out;
 	}
 
 	@Override
