@@ -37,18 +37,13 @@ import com.asw.InciManagerApplication;
 public class InciManagerTests {
 
 	@Value("${local.server.port}")
-	private int port;
-	String base = "http://localhost:8090/";
+	public int port;
+	private String base = "http://localhost:8090/";
 
-	private RestTemplate template = new TestRestTemplate();;
 
-	@Before
-	public void setUp() throws Exception {
-
-	}
 
 	@Test
-	public void t1_incidenciaDatosAgenteInvalidos() {
+	public void t1IncidenciaDatosAgenteInvalidos() {
 		String url = base + "incidence/add";
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(url);
@@ -72,7 +67,7 @@ public class InciManagerTests {
 	}
 
 	@Test
-	public void t1_incidenciaDatosAgenteValidos() {
+	public void t2ncidenciaDatosAgenteValidos() {
 		String url = base + "incidence/add";
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(url);
