@@ -15,15 +15,16 @@ import com.asw.selenium.util.PO_View;
 
 @RunWith(SpringRunner.class)
 // @SpringBootTest
-public class testSeleniumExtended {
+public class TestSeleniumExtended {
 
 	// En Windows (Debe ser la versión 46.0 y desactivar las actualizacioens
 	// automáticas)):
-	static String PathFirefox = "C:\\Users\\darid\\Desktop\\Firefox46.win\\FirefoxPortable.exe";
+	private static String PathFirefox = "C:\\Users\\darid\\Desktop\\Firefox46.win\\FirefoxPortable.exe";
 
 	// Común a Windows y a MACOSX
-	static WebDriver driver = getDriver(PathFirefox);
-	static String URL = "http://localhost:8090";
+	private static WebDriver driver = getDriver(PathFirefox);
+	private static String URL = "http://localhost:8090";
+
 	// Antes de la primera prueba
 	@BeforeClass
 	static public void begin() {
@@ -46,6 +47,7 @@ public class testSeleniumExtended {
 
 	// @Test
 	public void contextLoads() {
+
 	}
 
 	// Antes de cada prueba se navega al URL home de la aplicaciónn

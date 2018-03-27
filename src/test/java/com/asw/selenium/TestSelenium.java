@@ -12,7 +12,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
-public class testSelenium {
+public class TestSelenium {
+	
+	private WebDriver driver;
+	
 	/**
 	 * Escribe texto en un text field
 	 * 
@@ -29,9 +32,6 @@ public class testSelenium {
 		webElement.clear();
 		webElement.sendKeys(text);
 	}
-	private WebDriver driver;
-
-	private StringBuffer verificationErrors = new StringBuffer();
 
 	private void fillForm(WebDriver driver, String userName, String password, String tipo, String nombre,
 			String descripcion, String etiquetas, String propiedades) {
