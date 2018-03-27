@@ -66,13 +66,9 @@ public class IncidencesController {
 	}
 
 	@RequestMapping(value = "/incidence/add", method = RequestMethod.POST)
-	public String add(@RequestParam String nombreAgente, 
-			@RequestParam String passwordAgente,
-			@RequestParam String tipoAgente, 
-			@RequestParam String name,
-			@RequestParam String description,
-			@RequestParam String etiquetas, 
-			@RequestParam String properties) {
+	public String add(@RequestParam String nombreAgente, @RequestParam String passwordAgente,
+			@RequestParam String tipoAgente, @RequestParam String name, @RequestParam String description,
+			@RequestParam String etiquetas, @RequestParam String properties) {
 		Incidence incidence = new Incidence(nombreAgente, passwordAgente, tipoAgente, name, description, etiquetas,
 				properties);
 		if (agentsService.checkAgent(incidence)) {

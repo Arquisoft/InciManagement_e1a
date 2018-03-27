@@ -13,29 +13,29 @@ import com.asw.repositories.IncidencesRepository;
 public class IncidencesService {
 	@Autowired
 	private IncidencesRepository incidencesRepository;
-	
+
 	@Autowired
 	private KafkaProducer producer;
-	
+
 	public void addIncidence(Incidence incidence) {
-		//producer.send("Entities", incidence.toString());
+		// producer.send("Entities", incidence.toString());
 		incidencesRepository.save(incidence);
 	}
 
 	public List<Incidence> getIncidencesFor(String userName) {
 		return incidencesRepository.findByNombreAgente(userName);
 	}
-	
+
 	public void closeIncidence(Incidence incidence) {
 		incidence.close();
 		incidencesRepository.save(incidence);
 	}
-	
+
 	public void processIncidence(Incidence incidence) {
 		incidence.process();
 		incidencesRepository.save(incidence);
 	}
-	
+
 	public void cancelIncidence(Incidence incidence) {
 		incidence.cancel();
 		incidencesRepository.save(incidence);

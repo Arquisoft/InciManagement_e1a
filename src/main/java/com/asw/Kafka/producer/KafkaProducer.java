@@ -1,7 +1,5 @@
 package com.asw.Kafka.producer;
 
-
-
 import javax.annotation.ManagedBean;
 
 import org.jboss.logging.Logger;

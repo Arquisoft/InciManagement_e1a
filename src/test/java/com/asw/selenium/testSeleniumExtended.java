@@ -1,4 +1,5 @@
 package com.asw.selenium;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -10,12 +11,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.asw.selenium.util.PO_AddView;
 import com.asw.selenium.util.PO_ListView;
+import com.asw.selenium.util.PO_View;
 
 @RunWith(SpringRunner.class)
-//@SpringBootTest
+// @SpringBootTest
 public class testSeleniumExtended {
 
-	//@Test
+	// @Test
 	public void contextLoads() {
 	}
 
@@ -57,31 +59,30 @@ public class testSeleniumExtended {
 		// driver.quit();
 		driver.close();
 	}
-	
-	//@Test
+
+	// @Test
 	public void testAdd() {
 		PO_AddView.fillForm(driver, "usuarioJuan", "password", "Person", "inci", "ojioj", "joij", "jdoiw:iwi");
-		PO_AddView.checkElement(driver, "text", "Incidencia enviada");
+		PO_View.checkElement(driver, "text", "Incidencia enviada");
 	}
-	
-	//@Test
+
+	// @Test
 	public void testAddFailBadPassword() {
 		PO_AddView.fillForm(driver, "usuarioJuan", "pass", "Person", "inci", "ojioj", "joij", "jdoiw:iwi");
-		PO_AddView.checkElement(driver, "text", "Error 401");
+		PO_View.checkElement(driver, "text", "Error 401");
 	}
-	
-	
-	//@Test
+
+	// @Test
 	public void testList() {
 		driver.navigate().to("http://localhost:8090/incidence/list");
 		PO_ListView.fillForm(driver, "usuarioJuan", "password", "Person");
-		PO_ListView.checkElement(driver, "text", "Mis incidencias");
+		PO_View.checkElement(driver, "text", "Mis incidencias");
 	}
 
-	//@Test
+	// @Test
 	public void testListBadPassword() {
 		driver.navigate().to("http://localhost:8090/incidence/list");
 		PO_ListView.fillForm(driver, "usuarioJuan", "pass", "Person");
-		PO_ListView.checkElement(driver, "text", "Error 401");
+		PO_View.checkElement(driver, "text", "Error 401");
 	}
 }

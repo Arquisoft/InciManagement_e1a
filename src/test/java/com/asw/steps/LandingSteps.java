@@ -22,36 +22,35 @@ import com.asw.InciManagerApplication;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-@ContextConfiguration(classes=InciManagerApplication.class, loader=SpringBootContextLoader.class)
-@SpringBootTest 
+@ContextConfiguration(classes = InciManagerApplication.class, loader = SpringBootContextLoader.class)
+@SpringBootTest
 @WebAppConfiguration
 public class LandingSteps {
-  
-  @Autowired
-  protected WebApplicationContext context;
 
-  protected MockMvc mvc;
-  protected MvcResult result;
-  
-  @Value("${local.server.port}")
-  protected int port;
+	@Autowired
+	protected WebApplicationContext context;
 
-  
-  @When("^the client calls /$")
-  public void the_client_calls() throws Throwable {
-    Assert.notNull(context);
-    this.mvc = MockMvcBuilders.webAppContextSetup(context).build();
-    result = mvc.perform(get("/")).andReturn();
-  }
+	protected MockMvc mvc;
+	protected MvcResult result;
 
-  @Then("^the client receives status code of (\\d+)$")
-  public void the_client_receives_status_code_of(int status) throws Throwable {
-    assertThat(result.getResponse().getStatus(), is(status));
-  }
+	@Value("${local.server.port}")
+	protected int port;
 
-  @Then("^the client receives the string \"([^\"]*)\"$")
-  public void the_client_receives_the_string(String str) throws Throwable {
-   assertThat(result.getResponse().getContentAsString(), containsString(str));
-  }
+	@When("^the client calls /$")
+	public void the_client_calls() throws Throwable {
+		Assert.notNull(context);
+		this.mvc = MockMvcBuilders.webAppContextSetup(context).build();
+		result = mvc.perform(get("/")).andReturn();
+	}
+
+	@Then("^the client receives status code of (\\d+)$")
+	public void the_client_receives_status_code_of(int status) throws Throwable {
+		assertThat(result.getResponse().getStatus(), is(status));
+	}
+
+	@Then("^the client receives the string \"([^\"]*)\"$")
+	public void the_client_receives_the_string(String str) throws Throwable {
+		assertThat(result.getResponse().getContentAsString(), containsString(str));
+	}
 
 }

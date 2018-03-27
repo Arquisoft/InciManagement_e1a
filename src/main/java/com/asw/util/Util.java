@@ -32,7 +32,7 @@ public class Util {
 		list.remove(stringToDelete);
 		return toCsv(list);
 	}
-	
+
 	public static String toJsonArray(String csv) {
 		return "[" + toList(csv).stream().map(f -> "\"" + f + "\"").collect(Collectors.joining(",")) + "]";
 	}
