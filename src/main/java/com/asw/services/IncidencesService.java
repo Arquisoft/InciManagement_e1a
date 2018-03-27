@@ -12,9 +12,10 @@ import com.asw.repositories.IncidencesRepository;
 @Service
 public class IncidencesService {
 	@Autowired
-	IncidencesRepository incidencesRepository;
+	private IncidencesRepository incidencesRepository;
+	
 	@Autowired
-	KafkaProducer producer;
+	private KafkaProducer producer;
 	
 	public void addIncidence(Incidence incidence) {
 		//producer.send("Entities", incidence.toString());
