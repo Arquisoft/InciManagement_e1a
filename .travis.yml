@@ -9,7 +9,7 @@ env:
   - ZOOKEEPER_PEERS=localhost:2181
   - KAFKA_PEERS=localhost:9092
 after_success:
-- bash <(curl -s https://codecov.io/bash) -t uuid-repo-token
+- bash <(curl -s https://codecov.io/bash) -t 78289e9d-e727-417c-9081-44d84bd7254e
 - nohup bash -c "cd kafka && bin/kafka-server-stop.sh config/server.properties &"
 - sleep 10
 - nohup bash -c "cd kafka && bin/zookeeper-server-stop.sh config/zookeeper.properties &"
