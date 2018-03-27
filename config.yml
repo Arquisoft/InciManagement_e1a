@@ -38,6 +38,6 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
         
       # run tests!
-      - run: mvn spring-boot:run
+      - run: mvn spring-boot
       - run: mvn integration-test
 
