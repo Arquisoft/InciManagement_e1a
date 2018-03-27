@@ -1,5 +1,4 @@
 language: java
-script: "mvn spring-boot:run"
 script: "mvn cobertura:cobertura"
 sudo: required
 jdk:
@@ -23,3 +22,4 @@ before_install:
 - mkdir -p kafka && tar xzf kafka.tgz -C kafka --strip-components 1
 - nohup bash -c "cd kafka && bin/zookeeper-server-start.sh config/zookeeper.properties &"
 - nohup bash -c "cd kafka && bin/kafka-server-start.sh config/server.properties &"
+- mvn spring-boot:run
