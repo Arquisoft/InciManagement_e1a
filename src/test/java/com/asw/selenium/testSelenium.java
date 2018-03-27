@@ -40,7 +40,7 @@ public class testSelenium {
 		writeText(driver, "tipoAgente", tipo);
 		writeText(driver, "name", nombre);
 		writeText(driver, "description", descripcion);
-		writeText(driver, "tags", etiquetas);
+		writeText(driver, "tags", etiquetas); 
 		writeText(driver, "properties", propiedades);
 		driver.findElement(By.id("send")).click();
 	}
