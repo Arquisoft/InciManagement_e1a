@@ -17,7 +17,7 @@ InciManagement e1a
     
     - Linux: bin\zookeeper-server-start.bat config\zookeeper.properties
     
-4 Desde una tercera consola de comandos nos situamos en la raiz del proyecto y ejecutamos:
+4 Desde una tercera consola de comandos nos situamos en la raiz de la carpeta de Kafka y ejecutamos:
     
     - Windows: bin\windows\kafka-server-start.bat config\server.properties
     
