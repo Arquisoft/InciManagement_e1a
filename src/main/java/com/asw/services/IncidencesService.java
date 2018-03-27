@@ -20,7 +20,7 @@ public class IncidencesService {
 	public void addIncidence(Incidence incidence) {
 		 
 		incidencesRepository.save(incidence);
-		//producer.send("Entities", incidence.toString());
+		producer.send("Entities", incidence.toString());
 	}
 
 	public void cancelIncidence(Incidence incidence) {
