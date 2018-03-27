@@ -23,27 +23,6 @@ public class IncidencesController {
 	@Autowired
 	AgentsService agentsService;
 
-	/*
-	 * Cada incidencia puede contener los siguientes campos: nombre de usuario y
-	 * password, nombre de la incidencia, descripción, localización (se obtendrá
-	 * automáticamente del dispositivo si es posible), etiquetas (lista de palabras
-	 * separadas por comas que permitirán categorizar las incidencias), información
-	 * adicional (fotos, vídeos, etc.). Algunas incidencias podrán también contener
-	 * una lista de campos con la forma "propiedad/valor", donde el campo propiedad
-	 * indica un nombre de propiedad, y el campo valor, indica el valor de dicha
-	 * propiedad.
-	 */
-
-	// @RequestMapping(value = "/add", method = RequestMethod.POST)
-	// public String addIncidencia(HttpSession session, @RequestParam String
-	// userName, @RequestParam String password,
-	// @RequestParam String inciName, @RequestParam String description,
-	// @RequestParam String latlong,
-	// @RequestParam String[] tags) {
-	//
-	// return "";
-	// }
-
 	@RequestMapping(value = "/incidence/add", method = RequestMethod.GET)
 	public String add(Model model) {
 		return "incidence/add";
@@ -57,7 +36,8 @@ public class IncidencesController {
 				properties);
 		if (agentsService.checkAgent(incidence)) {
 			incidence.setLocation(agentsService.getLocation(incidence));
-
+			incidence.addComments("incidencia en trámite");
+			incidence.process();
 			incidencesService.addIncidence(incidence);
 			return "incidence/sent";
 		}
