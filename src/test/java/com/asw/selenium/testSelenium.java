@@ -13,8 +13,45 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 public class testSelenium {
+	/**
+	 * Escribe texto en un text field
+	 * 
+	 * @param driver
+	 *            apuntando al navegador abierto actualmente
+	 * @param id
+	 *            id del campo de texto donde escribir
+	 * @param text
+	 *            texto a escribir
+	 */
+	public static void writeText(WebDriver driver, String name, String text) {
+		WebElement webElement = driver.findElement(By.name(name));
+		webElement.click();
+		webElement.clear();
+		webElement.sendKeys(text);
+	}
 	private WebDriver driver;
+
 	private StringBuffer verificationErrors = new StringBuffer();
+
+	private void fillForm(WebDriver driver, String userName, String password, String tipo, String nombre,
+			String descripcion, String etiquetas, String propiedades) {
+		writeText(driver, "nombreAgente", userName);
+		writeText(driver, "passwordAgente", password);
+		writeText(driver, "tipoAgente", tipo);
+		writeText(driver, "name", nombre);
+		writeText(driver, "description", descripcion);
+		writeText(driver, "tags", etiquetas);
+		writeText(driver, "properties", propiedades);
+		driver.findElement(By.id("send")).click();
+	}
+
+	private void fillLogin(WebDriver driver, String userName, String password, String tipo) {
+		writeText(driver, "nombreAgente", userName);
+		writeText(driver, "passwordAgente", password);
+		writeText(driver, "tipoAgente", tipo);
+		driver.findElement(By.id("send")).click();
+
+	}
 
 	@Before
 	public void setUp() throws Exception {
@@ -68,43 +105,6 @@ public class testSelenium {
 		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'" + texto + "')]"));
 		assertTrue(list.size() > 0);
 
-	}
-
-	private void fillLogin(WebDriver driver, String userName, String password, String tipo) {
-		writeText(driver, "nombreAgente", userName);
-		writeText(driver, "passwordAgente", password);
-		writeText(driver, "tipoAgente", tipo);
-		driver.findElement(By.id("send")).click();
-
-	}
-
-	private void fillForm(WebDriver driver, String userName, String password, String tipo, String nombre,
-			String descripcion, String etiquetas, String propiedades) {
-		writeText(driver, "nombreAgente", userName);
-		writeText(driver, "passwordAgente", password);
-		writeText(driver, "tipoAgente", tipo);
-		writeText(driver, "name", nombre);
-		writeText(driver, "description", descripcion);
-		writeText(driver, "tags", etiquetas);
-		writeText(driver, "properties", propiedades);
-		driver.findElement(By.id("send")).click();
-	}
-
-	/**
-	 * Escribe texto en un text field
-	 * 
-	 * @param driver
-	 *            apuntando al navegador abierto actualmente
-	 * @param id
-	 *            id del campo de texto donde escribir
-	 * @param text
-	 *            texto a escribir
-	 */
-	public static void writeText(WebDriver driver, String name, String text) {
-		WebElement webElement = driver.findElement(By.name(name));
-		webElement.click();
-		webElement.clear();
-		webElement.sendKeys(text);
 	}
 
 }

@@ -44,25 +44,9 @@ public class IncidencesController {
 	// return "";
 	// }
 
-	@RequestMapping(value = "/incidence/list")
-	public String listIncidences() {
-		return "incidence/auth";
-	}
-
-	@RequestMapping(value = "/incidence/list", method = RequestMethod.POST)
-	public String listIncidences(Model model, @RequestParam("nombreAgente") String userName,
-			@RequestParam("passwordAgente") String password, @RequestParam("tipoAgente") String kind) {
-		if (agentsService.checkAgent(userName, password, kind)) {
-			List<Incidence> incidences = incidencesService.getIncidencesFor(userName);
-			model.addAttribute("incidences", incidences);
-			return "incidence/list";
-		}
-		throw new UnauthorizedException();
-	}
-
-	@RequestMapping(value = "/")
-	public String home() {
-		return "redirect:/incidence/add";
+	@RequestMapping(value = "/incidence/add", method = RequestMethod.GET)
+	public String add(Model model) {
+		return "incidence/add";
 	}
 
 	@RequestMapping(value = "/incidence/add", method = RequestMethod.POST)
@@ -80,9 +64,25 @@ public class IncidencesController {
 		throw new UnauthorizedException();
 	}
 
-	@RequestMapping(value = "/incidence/add", method = RequestMethod.GET)
-	public String add(Model model) {
-		return "incidence/add";
+	@RequestMapping(value = "/")
+	public String home() {
+		return "redirect:/incidence/add";
+	}
+
+	@RequestMapping(value = "/incidence/list")
+	public String listIncidences() {
+		return "incidence/auth";
+	}
+
+	@RequestMapping(value = "/incidence/list", method = RequestMethod.POST)
+	public String listIncidences(Model model, @RequestParam("nombreAgente") String userName,
+			@RequestParam("passwordAgente") String password, @RequestParam("tipoAgente") String kind) {
+		if (agentsService.checkAgent(userName, password, kind)) {
+			List<Incidence> incidences = incidencesService.getIncidencesFor(userName);
+			model.addAttribute("incidences", incidences);
+			return "incidence/list";
+		}
+		throw new UnauthorizedException();
 	}
 
 }

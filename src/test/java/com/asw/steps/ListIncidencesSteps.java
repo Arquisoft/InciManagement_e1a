@@ -33,30 +33,6 @@ public class ListIncidencesSteps {
 
 	HttpResponse response = null;
 
-	@Given("^una incidencia enviada con: nombreAgente \"([^\"]*)\", password \"([^\"]*)\", tipoAgente \"([^\"]*)\", "
-			+ "name \"([^\"]*)\", description \"([^\"]*)\", etiquetas \"([^\"]*)\", porperties \"([^\"]*)\"$")
-	public void una_incidencia_enviada_con_nombreAgente_password_tipoAgente_name_description_etiquetas_porperties(
-			String arg1, String arg2, String arg3, String arg4, String arg5, String arg6, String arg7)
-			throws Throwable {
-		String url = "http://localhost:8090/incidence/add";
-		HttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(url);
-		post.setHeader("User-Agent", "Mozilla/5.0");
-		List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
-		urlParameters.add(new BasicNameValuePair("nombreAgente", arg1));
-		urlParameters.add(new BasicNameValuePair("passwordAgente", arg2));
-		urlParameters.add(new BasicNameValuePair("tipoAgente", arg3));
-		urlParameters.add(new BasicNameValuePair("name", arg3));
-		urlParameters.add(new BasicNameValuePair("description", arg4));
-		urlParameters.add(new BasicNameValuePair("etiquetas", arg5));
-		urlParameters.add(new BasicNameValuePair("properties", arg6));
-		try {
-			post.setEntity(new UrlEncodedFormEntity(urlParameters));
-			client.execute(post);
-		} catch (IOException e) {
-		}
-	}
-
 	@When("^me identifico como \"([^\"]*)\", contraseña \"([^\"]*)\" y tipo \"([^\"]*)\"$")
 	public void me_identifico_como_contraseña_y_tipo(String arg1, String arg2, String arg3) throws Throwable {
 
@@ -87,6 +63,30 @@ public class ListIncidencesSteps {
 		}
 		System.out.println(result.toString());
 		assertTrue(result.toString().contains(arg1));
+	}
+
+	@Given("^una incidencia enviada con: nombreAgente \"([^\"]*)\", password \"([^\"]*)\", tipoAgente \"([^\"]*)\", "
+			+ "name \"([^\"]*)\", description \"([^\"]*)\", etiquetas \"([^\"]*)\", porperties \"([^\"]*)\"$")
+	public void una_incidencia_enviada_con_nombreAgente_password_tipoAgente_name_description_etiquetas_porperties(
+			String arg1, String arg2, String arg3, String arg4, String arg5, String arg6, String arg7)
+			throws Throwable {
+		String url = "http://localhost:8090/incidence/add";
+		HttpClient client = new DefaultHttpClient();
+		HttpPost post = new HttpPost(url);
+		post.setHeader("User-Agent", "Mozilla/5.0");
+		List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
+		urlParameters.add(new BasicNameValuePair("nombreAgente", arg1));
+		urlParameters.add(new BasicNameValuePair("passwordAgente", arg2));
+		urlParameters.add(new BasicNameValuePair("tipoAgente", arg3));
+		urlParameters.add(new BasicNameValuePair("name", arg3));
+		urlParameters.add(new BasicNameValuePair("description", arg4));
+		urlParameters.add(new BasicNameValuePair("etiquetas", arg5));
+		urlParameters.add(new BasicNameValuePair("properties", arg6));
+		try {
+			post.setEntity(new UrlEncodedFormEntity(urlParameters));
+			client.execute(post);
+		} catch (IOException e) {
+		}
 	}
 
 }

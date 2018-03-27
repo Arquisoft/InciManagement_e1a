@@ -48,30 +48,6 @@ public class InciManagerTests {
 	}
 
 	@Test
-	public void t1_incidenciaDatosAgenteValidos() {
-		String url = base + "incidence/add";
-		HttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(url);
-		HttpResponse response = null;
-		post.setHeader("User-Agent", "Mozilla/5.0");
-		List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
-		urlParameters.add(new BasicNameValuePair("nombreAgente", "usuarioJuan"));
-		urlParameters.add(new BasicNameValuePair("passwordAgente", "password"));
-		urlParameters.add(new BasicNameValuePair("tipoAgente", "Person"));
-		urlParameters.add(new BasicNameValuePair("name", "Fuego!"));
-		urlParameters.add(new BasicNameValuePair("description", "Fuego en el monte de Terverga"));
-		urlParameters.add(new BasicNameValuePair("etiquetas", "fuego, emergencia, daños"));
-		urlParameters.add(new BasicNameValuePair("properties", "temperatura:alta, viente:fuerte"));
-		try {
-			post.setEntity(new UrlEncodedFormEntity(urlParameters));
-			response = client.execute(post);
-		} catch (IOException e) {
-			fail();
-		}
-		assertTrue(response.getStatusLine().getStatusCode() == 200);
-	}
-
-	@Test
 	public void t1_incidenciaDatosAgenteInvalidos() {
 		String url = base + "incidence/add";
 		HttpClient client = new DefaultHttpClient();
@@ -93,5 +69,29 @@ public class InciManagerTests {
 			fail();
 		}
 		assertEquals(response.getStatusLine().getStatusCode(), 401);
+	}
+
+	@Test
+	public void t1_incidenciaDatosAgenteValidos() {
+		String url = base + "incidence/add";
+		HttpClient client = new DefaultHttpClient();
+		HttpPost post = new HttpPost(url);
+		HttpResponse response = null;
+		post.setHeader("User-Agent", "Mozilla/5.0");
+		List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
+		urlParameters.add(new BasicNameValuePair("nombreAgente", "usuarioJuan"));
+		urlParameters.add(new BasicNameValuePair("passwordAgente", "password"));
+		urlParameters.add(new BasicNameValuePair("tipoAgente", "Person"));
+		urlParameters.add(new BasicNameValuePair("name", "Fuego!"));
+		urlParameters.add(new BasicNameValuePair("description", "Fuego en el monte de Terverga"));
+		urlParameters.add(new BasicNameValuePair("etiquetas", "fuego, emergencia, daños"));
+		urlParameters.add(new BasicNameValuePair("properties", "temperatura:alta, viente:fuerte"));
+		try {
+			post.setEntity(new UrlEncodedFormEntity(urlParameters));
+			response = client.execute(post);
+		} catch (IOException e) {
+			fail();
+		}
+		assertTrue(response.getStatusLine().getStatusCode() == 200);
 	}
 }

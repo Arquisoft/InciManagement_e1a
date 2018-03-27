@@ -22,8 +22,9 @@ public class IncidencesService {
 		incidencesRepository.save(incidence);
 	}
 
-	public List<Incidence> getIncidencesFor(String userName) {
-		return incidencesRepository.findByNombreAgente(userName);
+	public void cancelIncidence(Incidence incidence) {
+		incidence.cancel();
+		incidencesRepository.save(incidence);
 	}
 
 	public void closeIncidence(Incidence incidence) {
@@ -31,13 +32,12 @@ public class IncidencesService {
 		incidencesRepository.save(incidence);
 	}
 
-	public void processIncidence(Incidence incidence) {
-		incidence.process();
-		incidencesRepository.save(incidence);
+	public List<Incidence> getIncidencesFor(String userName) {
+		return incidencesRepository.findByNombreAgente(userName);
 	}
 
-	public void cancelIncidence(Incidence incidence) {
-		incidence.cancel();
+	public void processIncidence(Incidence incidence) {
+		incidence.process();
 		incidencesRepository.save(incidence);
 	}
 

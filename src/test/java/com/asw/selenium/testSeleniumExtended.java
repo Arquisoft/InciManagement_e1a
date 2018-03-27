@@ -17,39 +17,16 @@ import com.asw.selenium.util.PO_View;
 // @SpringBootTest
 public class testSeleniumExtended {
 
-	// @Test
-	public void contextLoads() {
-	}
-
 	// En Windows (Debe ser la versión 46.0 y desactivar las actualizacioens
 	// automáticas)):
 	static String PathFirefox = "C:\\Users\\darid\\Desktop\\Firefox46.win\\FirefoxPortable.exe";
+
 	// Común a Windows y a MACOSX
 	static WebDriver driver = getDriver(PathFirefox);
 	static String URL = "http://localhost:8090";
-
-	public static WebDriver getDriver(String PathFirefox) {
-		// Firefox (Versión 46.0) sin geckodriver para Selenium 2.x.
-		System.setProperty("webdriver.firefox.bin", PathFirefox);
-		WebDriver driver = new FirefoxDriver();
-		return driver;
-	}
-
-	// Antes de cada prueba se navega al URL home de la aplicaciónn
-	@Before
-	public void setUp() {
-		driver.navigate().to(URL);
-	}
-
 	// Antes de la primera prueba
 	@BeforeClass
 	static public void begin() {
-	}
-
-	// Después de cada prueba se borran las cookies del navegador
-	@After
-	public void tearDown() {
-		driver.manage().deleteAllCookies();
 	}
 
 	// Al finalizar la última prueba
@@ -58,6 +35,29 @@ public class testSeleniumExtended {
 		// Cerramos el navegador al finalizar las pruebas
 		// driver.quit();
 		driver.close();
+	}
+
+	public static WebDriver getDriver(String PathFirefox) {
+		// Firefox (Versión 46.0) sin geckodriver para Selenium 2.x.
+		System.setProperty("webdriver.firefox.bin", PathFirefox);
+		WebDriver driver = new FirefoxDriver();
+		return driver;
+	}
+
+	// @Test
+	public void contextLoads() {
+	}
+
+	// Antes de cada prueba se navega al URL home de la aplicaciónn
+	@Before
+	public void setUp() {
+		driver.navigate().to(URL);
+	}
+
+	// Después de cada prueba se borran las cookies del navegador
+	@After
+	public void tearDown() {
+		driver.manage().deleteAllCookies();
 	}
 
 	// @Test

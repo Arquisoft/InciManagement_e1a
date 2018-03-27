@@ -9,14 +9,6 @@ public class PO_View {
 
 	protected static int timeout = 2;
 
-	public static int getTimeout() {
-		return timeout;
-	}
-
-	public static void setTimeout(int timeout) {
-		PO_View.timeout = timeout;
-	}
-
 	/**
 	 * Espera por la visibilidad de un elemento/s en la vista actualmente cargandose
 	 * en driver..
@@ -30,5 +22,13 @@ public class PO_View {
 	static public List<WebElement> checkElement(WebDriver driver, String type, String text) {
 		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, type, text, getTimeout());
 		return elementos;
+	}
+
+	public static int getTimeout() {
+		return timeout;
+	}
+
+	public static void setTimeout(int timeout) {
+		PO_View.timeout = timeout;
 	}
 }

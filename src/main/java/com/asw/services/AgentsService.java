@@ -17,6 +17,17 @@ public class AgentsService {
 		return checkAgent(incidence.getNombreAgente(), incidence.getPasswordAgente(), incidence.getTipoAgente());
 	}
 
+	public boolean checkAgent(String agentName, String password, String kind) {
+		RestTemplate template = new RestTemplate();
+		try {
+			template.postForEntity("http://34.210.218.163:8090/agent", new PeticionInfoREST(agentName, password, kind),
+					String.class);
+			return true;
+		} catch (HttpClientErrorException e) {
+			return false;
+		}
+	}
+
 	public String getLocation(Incidence incidence) {
 		RestTemplate template = new RestTemplate();
 		ResponseEntity<String> response = template.postForEntity("http://34.210.218.163:8090/agent",
@@ -28,17 +39,6 @@ public class AgentsService {
 			return (String) jsonObject.get("location");
 		} catch (ParseException e) {
 			return null;
-		}
-	}
-
-	public boolean checkAgent(String agentName, String password, String kind) {
-		RestTemplate template = new RestTemplate();
-		try {
-			template.postForEntity("http://34.210.218.163:8090/agent", new PeticionInfoREST(agentName, password, kind),
-					String.class);
-			return true;
-		} catch (HttpClientErrorException e) {
-			return false;
 		}
 	}
 
