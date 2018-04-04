@@ -36,7 +36,7 @@ public class Incidence {
 	private String additionalInfo;
 
 	public Incidence() {
-
+		super();
 	}
 
 	public Incidence(String nombreAgente, String passwordAgente, String tipoAgente, String name, String description,
