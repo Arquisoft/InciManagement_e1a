@@ -69,7 +69,7 @@ public class TestSelenium {
 		// En primer lugar comprobamos que somos redirigidos a la pagina correcta
 		Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8090/incidence/add");
 	}
-
+	//@Test
 	public void test02() {
 		// rellenamos con unos datos incorrectos
 		fillForm(driver, "usuarioJuan", "12345", "Person", "Nevada", "gran nevada en el Angliru", "nieve,4x4,idiotas",
