@@ -6,10 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import com.asw.util.Util;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -30,6 +33,7 @@ public class Incidence {
 	private String tipoAgente;
 	private String etiquetas;
 	private String properties = "";
+	@Enumerated(EnumType.STRING)
 	private IncidenceState state = IncidenceState.OPENED;
 	private String expiration;
 	private String comments;
@@ -43,23 +47,23 @@ public class Incidence {
 			String etiquetas, String properties) {
 		this.name = name;
 		this.description = description;
-		this.etiquetas = etiquetas;
-		this.properties = properties;
+		this.etiquetas = etiquetas.toLowerCase();
+		this.properties = properties.toLowerCase();
 		this.nombreAgente = nombreAgente;
 		this.passwordAgente = passwordAgente;
 		this.tipoAgente = tipoAgente;
 	}
 
 	public void addComments(String newComment) {
-		comments = Util.addString(newComment, comments);
+		comments = Util.addString(newComment.toLowerCase(), comments);
 	}
 
 	public void addProperties(String newPropertie) {
-		properties = Util.addString(newPropertie, properties);
+		properties = Util.addString(newPropertie.toLowerCase(), properties);
 	}
 
 	public void addTags(String newTag) {
-		etiquetas = Util.addString(newTag, etiquetas);
+		etiquetas = Util.addString(newTag.toLowerCase(), etiquetas);
 	}
 
 	public void cancel() {
@@ -71,11 +75,15 @@ public class Incidence {
 	}
 
 	public void deleteComment(String comment) {
-		comments = Util.deleteString(comment, comments);
+		comments = Util.deleteString(comment.toLowerCase(), comments);
 	}
 
 	public void deleteTag(String tag) {
-		etiquetas = Util.deleteString(tag, etiquetas);
+		etiquetas = Util.deleteString(tag.toLowerCase(), etiquetas);
+	}
+	
+	public void deleteProperty(String key) {
+		properties = Util.deleteProperty(key.toLowerCase(), properties);
 	}
 
 	@Override
@@ -104,6 +112,7 @@ public class Incidence {
 		return additionalInfo;
 	}
 
+	@JsonIgnore
 	public List<String> getCommentList() {
 		return Util.toList(comments);
 	}
@@ -132,6 +141,7 @@ public class Incidence {
 		return id;
 	}
 
+	@JsonIgnore
 	public List<String> getInfoList() {
 		return Util.toList(additionalInfo);
 	}
@@ -156,26 +166,20 @@ public class Incidence {
 		return properties;
 	}
 
+	@JsonIgnore
 	public Map<String, String> getPropertyMap() {
-		Map<String, String> out = new HashMap<>();
-		try {
-			for (String property : properties.split(",")) {
-				out.put(property.split(":")[0].trim(), property.split(":")[1].trim());
-			}
-		} catch (Exception e) {
-
-		}
-		return out;
+		return Util.toMap(properties);
 	}
 
 	public IncidenceState getState() {
 		return state;
 	}
 
+	@JsonIgnore
 	public List<String> getTagList() {
 		return Util.toList(etiquetas);
 	}
-
+	
 	public String getTipoAgente() {
 		return tipoAgente;
 	}
@@ -237,35 +241,11 @@ public class Incidence {
 		this.tipoAgente = tipoAgente;
 	}
 
-	public String toJson() {
-		String json = "{";
-		json += "\"agent\":{\"name\":\"" + nombreAgente + "\",\"password\":\"" + passwordAgente + "\",\"kind\":\""
-				+ tipoAgente + "\"},";
-		json += "\"name\":\"" + name + "\",";
-		json += "\"description\":\"" + description + "\",";
-		json += "\"location\":\"" + location + "\",";
-		json += "\"tags\":" + Util.toJsonArray(etiquetas) + ",";
-		json += "\"aditionalInfo\":" + Util.toJsonArray(additionalInfo) + ",";
-		json += "\"properties\":{";
-		for (String propertie : properties.split(",")) {
-			json += "\"" + propertie.split(":")[0] + "\":\"" + propertie.split(":")[1] + "\",";
-		}
-		if (json.charAt(json.length() - 1) == ',') {
-			json = json.substring(0, json.length() - 1);
-		}
-		json += "},";
-		json += "\"state\":\"" + state.toString() + "\",";
-		json += "\"comments\":" + Util.toJsonArray(comments) + ",";
-		json += "\"expiration\":\"" + expiration + "\"";
-		json += "}";
-		return json;
-	}
-
 	@Override
 	public String toString() {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			Object obj = mapper.readValue(toJson(), Object.class);
+			Object obj = mapper.readValue(Util.IncidenceToJSON(this), Object.class);
 			return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
 		} catch (IOException e) {
 			return "problema con json ... ";

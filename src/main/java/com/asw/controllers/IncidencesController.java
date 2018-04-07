@@ -32,6 +32,7 @@ public class IncidencesController {
 	public String add(@RequestParam String nombreAgente, @RequestParam String passwordAgente,
 			@RequestParam String tipoAgente, @RequestParam String name, @RequestParam String description,
 			@RequestParam String etiquetas, @RequestParam String properties) {
+		// TODO validar los campos, por lo menos el de properties
 		Incidence incidence = new Incidence(nombreAgente, passwordAgente, tipoAgente, name, description, etiquetas,
 				properties);
 		if (agentsService.checkAgent(incidence)) {
