@@ -15,7 +15,7 @@ public class IncidencesService {
 	private IncidencesRepository incidencesRepository;
 
 	@Autowired
-	private KafkaProducer producer;
+	private KafkaProducer producer; 
 
 	public void addIncidence(Incidence incidence) {
 		 
