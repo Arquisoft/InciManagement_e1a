@@ -20,7 +20,7 @@ public class AgentsService {
 	public boolean checkAgent(String agentName, String password, String kind) {
 		RestTemplate template = new RestTemplate();
 		try {
-			template.postForEntity("http://34.210.218.163:8090/agent", new PeticionInfoREST(agentName, password, kind),
+			template.postForEntity("http://18.236.186.26:8090/agent", new PeticionInfoREST(agentName, password, kind),
 					String.class);
 			return true;
 		} catch (HttpClientErrorException e) {
@@ -30,7 +30,7 @@ public class AgentsService {
 
 	public String getLocation(Incidence incidence) {
 		RestTemplate template = new RestTemplate();
-		ResponseEntity<String> response = template.postForEntity("http://34.210.218.163:8090/agent",
+		ResponseEntity<String> response = template.postForEntity("http://18.236.186.26:8090/agent",
 				new PeticionInfoREST(incidence.getNombreAgente(), incidence.getPasswordAgente(),
 						incidence.getTipoAgente()),
 				String.class);
