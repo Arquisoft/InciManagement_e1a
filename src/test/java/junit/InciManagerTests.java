@@ -96,7 +96,6 @@ public class InciManagerTests {
 	@Test
 	public void t4IncidenciaModel() {
 		
-
 		Incidence i = new Incidence("AgentePrueba","password","Person" ,"incidencia 1", "descripción de la incidencia", "prueba,incidence",
 				"prueba:primera modelo:incidencia");
 
