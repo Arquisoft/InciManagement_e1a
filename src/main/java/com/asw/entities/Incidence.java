@@ -43,7 +43,9 @@ public class Incidence {
 		super();
 	}
 
-	public Incidence(String nombreAgente, String passwordAgente, String tipoAgente, String name, String description,
+	public Incidence(String nombreAgente, 
+			String passwordAgente, String tipoAgente,
+			String name, String description,
 			String etiquetas, String properties) {
 		this.name = name;
 		this.description = description;

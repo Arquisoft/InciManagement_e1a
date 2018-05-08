@@ -28,6 +28,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
 import com.asw.InciManagerApplication;
+import com.asw.entities.Incidence;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringRunner.class)
@@ -89,4 +90,34 @@ public class InciManagerTests {
 		}
 		assertTrue(response.getStatusLine().getStatusCode() == 200);
 	}
+	
+	
+
+	@Test
+	public void t4IncidenciaModel() {
+		
+
+		Incidence i = new Incidence("AgentePrueba","password","Person" ,"incidencia 1", "descripción de la incidencia", "prueba,incidence",
+				"prueba:primera modelo:incidencia");
+
+		i.setPasswordAgente("pass");
+		i.setNombreAgente("Agente@gmail.com");
+
+		
+		assert i.getNombreAgente().equals("AgentePrueba");
+		assert i.getPasswordAgente().equals("pass");
+		assert i.getLocation().equals("");
+		assert i.getTipoAgente().equals("Person");
+
+		
+		assert i.getName().equals("incidencia 1");
+		assert i.getDescription().equals("descripción de la incidencia");
+
+		assert i.getEtiquetas().length() == 2;
+		assert i.getPropertyMap().size() == 2;
+
+		
+
+	}
+
 }
