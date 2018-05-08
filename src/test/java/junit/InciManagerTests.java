@@ -38,7 +38,7 @@ public class InciManagerTests {
 
 	@Value("${local.server.port}")
 	public int port;
-	private String base = "http://localhost:8090/";
+	private String base = "http://34.214.22.214:8080";
 
 
 
@@ -63,12 +63,12 @@ public class InciManagerTests {
 		} catch (IOException e) {
 			fail();
 		}
-		assertEquals(response.getStatusLine().getStatusCode(), 401);
+		assertEquals(response.getStatusLine().getStatusCode(), 403);
 	}
 
 	@Test
 	public void t2ncidenciaDatosAgenteValidos() {
-		String url = base + "incidence/add";
+		String url = base + "/incidence/add";
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(url);
 		HttpResponse response = null;

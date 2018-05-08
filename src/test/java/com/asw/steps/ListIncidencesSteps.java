@@ -36,7 +36,7 @@ public class ListIncidencesSteps {
 	@When("^me identifico como \"([^\"]*)\", contraseña \"([^\"]*)\" y tipo \"([^\"]*)\"$")
 	public void me_identifico_como_contraseña_y_tipo(String arg1, String arg2, String arg3) throws Throwable {
 
-		String url = "http://localhost:8090/incidence/list";
+		String url = "http://34.214.22.214:8080/incidence/list";
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(url);
 		post.setHeader("User-Agent", "Mozilla/5.0");
@@ -70,7 +70,7 @@ public class ListIncidencesSteps {
 	public void una_incidencia_enviada_con_nombreAgente_password_tipoAgente_name_description_etiquetas_porperties(
 			String arg1, String arg2, String arg3, String arg4, String arg5, String arg6, String arg7)
 			throws Throwable {
-		String url = "http://localhost:8090/incidence/add";
+		String url = "http://34.214.22.214:8080/incidence/add";
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(url);
 		post.setHeader("User-Agent", "Mozilla/5.0");
