@@ -1,6 +1,7 @@
 package junit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -103,17 +104,17 @@ public class InciManagerTests {
 		i.setNombreAgente("Agente@gmail.com");
 
 		
-		assert i.getNombreAgente().equals("AgentePrueba");
+		assert i.getNombreAgente().equals("Agente@gmail.com");
 		assert i.getPasswordAgente().equals("pass");
-		assert i.getLocation().equals("");
+		assertNull( i.getLocation());
 		assert i.getTipoAgente().equals("Person");
 
 		
 		assert i.getName().equals("incidencia 1");
 		assert i.getDescription().equals("descripción de la incidencia");
 
-		assert i.getEtiquetas().length() == 2;
-		assert i.getPropertyMap().size() == 2;
+		assert i.getEtiquetas().equals("prueba,incidence");
+		assert i.getProperties().equals("prueba:primera modelo:incidencia");
 
 		
 
