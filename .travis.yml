@@ -1,5 +1,5 @@
 language: java
-script: "mvn install"
+script: "mvn test"
 sudo: required
 jdk:
 - oraclejdk8
