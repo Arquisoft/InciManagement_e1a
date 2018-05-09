@@ -1,6 +1,7 @@
 package junit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -134,19 +135,29 @@ public class InciManagerTests {
 		assert i.getProperties().equals("frio:alto, humedad:alta");
 		i.addProperties("viento:suave");
 		assert i.getProperties().equals("frio:alto,humedad:alta,viento:suave");
+		 i.addComments("comentario 1");
+		 i.addComments("comentario 2");
 
+		 asserTrue( i.getComments().equals("comentario 1,comentario2"));
+		 assert i.getCommentList().size()==2;
+		 i.deleteComment("comentario 1");
+		 asserTrue( i.getComments().equals("comentario 1"));
+		 assert i.getCommentList().size()==1;
 		
-		
+		 
 		inciServ.addIncidence(i);
 		i.getState().equals(IncidenceState.OPENED);
-	
 		inciServ.processIncidence(i); 
 		i.getState().equals(IncidenceState.IN_PROCESS);
 		inciServ.cancelIncidence(i);
 		i.getState().equals(IncidenceState.CANCELED);	
 		inciServ.closeIncidence(i);
-		i.getState().equals(IncidenceState.CLOSED);		
-
+		i.getState().equals(IncidenceState.CLOSED);	
+		
+		Incidence i2 = new Incidence("AgentePrueba","password","Person" ,"incidencia 1", "descripción de la incidencia", "prueba,incidence",
+				"prueba:primera modelo:incidencia");
+		
+		assertFalse(i2.equals(i));
 		
 			
 
@@ -154,6 +165,11 @@ public class InciManagerTests {
 			
 		
 
+	}
+
+	private void asserTrue(boolean equals) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

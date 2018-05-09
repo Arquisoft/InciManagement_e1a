@@ -41,5 +41,9 @@ public class IncidencesService {
 		incidence.process();
 		incidencesRepository.save(incidence);
 	}
+	public void deleteIncidence(Incidence incidence) {
+		incidencesRepository.delete(incidence);
+	}
+	
 
 }
