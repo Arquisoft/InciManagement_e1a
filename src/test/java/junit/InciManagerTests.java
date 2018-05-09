@@ -21,6 +21,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.TestRestTemplate;
@@ -30,6 +31,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.asw.InciManagerApplication;
 import com.asw.entities.Incidence;
+import com.asw.entities.IncidenceState;
+import com.asw.services.IncidencesService;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringRunner.class)
@@ -42,6 +45,8 @@ public class InciManagerTests {
 	public int port;
 	private String base = "http://34.214.22.214:8080";
 
+	@Autowired
+	IncidencesService inciServ;
 
 
 	@Test
@@ -108,14 +113,45 @@ public class InciManagerTests {
 		assert i.getPasswordAgente().equals("pass");
 		assertNull( i.getLocation());
 		assert i.getTipoAgente().equals("Person");
-
+		
+		
 		
 		assert i.getName().equals("incidencia 1");
 		assert i.getDescription().equals("descripción de la incidencia");
 
 		assert i.getEtiquetas().equals("prueba,incidence");
 		assert i.getProperties().equals("prueba:primera modelo:incidencia");
+		
+		i.setDescripcion("nueva descripcion");
+		i.setEtiquetas("et1 , et2, et3");
+		i.setLocation("La calle ");
+		i.setProperties("frio:alto, humedad:alta");
+		
+		assert i.getDescription().equals("nueva descripcion");
+		assert i.getEtiquetas().equals("et1 , et2, et3");
+		i.addTags("et4");
+		assertEquals( i.getEtiquetas() ,"et1,et2,et3,et4");
+		assert i.getProperties().equals("frio:alto, humedad:alta");
+		i.addProperties("viento:suave");
+		assert i.getProperties().equals("frio:alto,humedad:alta,viento:suave");
 
+		
+		
+		inciServ.addIncidence(i);
+		i.getState().equals(IncidenceState.OPENED);
+	
+		inciServ.processIncidence(i); 
+		i.getState().equals(IncidenceState.IN_PROCESS);
+		inciServ.cancelIncidence(i);
+		i.getState().equals(IncidenceState.CANCELED);	
+		inciServ.closeIncidence(i);
+		i.getState().equals(IncidenceState.CLOSED);		
+
+		
+			
+
+		
+			
 		
 
 	}
