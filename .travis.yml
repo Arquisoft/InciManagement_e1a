@@ -2,7 +2,7 @@ language: java
 script: "mvn test"
 sudo: required
 jdk:
-- oraclejdk8
+- oraclejdk8 
 env:
   global:
   - ZOOKEEPER_PEERS=localhost:2181
